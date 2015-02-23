@@ -1,0 +1,77 @@
+#!/bin/sh
+#
+# chkconfig: 2345 80 05
+# description: this script manages Autonomy Twitter Connector services 
+#
+# bash script to go in /etc/init.d to run Twitter Connector as a linux service
+# as the idol user. If you do not have an idol user, please read
+# accompanying notes idol_install_linux_best_practices.txt
+#
+# save as root:root group & chmod a+x 
+#
+# and then run e.g.
+#
+# [root@localhost init.d]# chkconfig --add idol
+#
+# to add this as a managed service
+#
+# if you are running license server locally, uncomment the relevant
+# lines in the case statements for start) stop)
+#
+# [root@localhost init.d]# ls -l /etc/init.d/idol
+# -rwxr-xr-x 1 root root 1206 Feb 26 10:21 /etc/init.d/idol
+#
+# use "service" to invoke e.g.
+#
+# [root@localhost init.d] service idol status
+#
+# written/tested on HP R&D COE RHEL 6.0 vs Twitter Connector 10.5
+#
+# note: for other linux flavours, may need su in place of su, 
+# check the other scripts in /etc/init.d for guidance
+#
+# DJP - 2014
+
+# See how we were called.
+case "$1" in
+  start)
+    #echo -n "Starting Autonomy CFS: "
+	#su - idol -c "cd /opt/Autonomy/TwitterConnector/CFS/ ; nohup ./CFS.exe &"
+    echo -n "Starting Autonomy Twitter Connector: "
+	su - idol -c "cd /opt/Autonomy/IDOLServer/TwitterConnector/ ; nohup ./TwitterConnector.exe &"
+	;;
+  stop)
+    echo -n "Stopping Autonomy Twitter Connector: "
+	cd "/opt/Autonomy/IDOLServer/TwitterConnector"
+	curl http://localhost:5432/action=STOP &> sed -e "s/<.+>/ /g"
+    #echo -n "Stopping Autonomy CFS: "
+	#cd "/opt/Autonomy/TwitterConnector"
+	#curl http://localhost:40300/action=STOP &> sed -e "s/<.+>/ /g"
+	
+	;;
+  status)
+        #cd /opt/Autonomy/TwitterConnector/CFS/
+        #/opt/Autonomy/TwitterConnector/CFS/CFS.exe --version
+        cd /opt/Autonomy/IDOLServer/TwitterConnector
+        /opt/Autonomy/IDOLServer/TwitterConnector/TwitterConnector.exe --version
+	echo "PID TTY          TIME CMD"
+	#for PID in `find /opt/Autonomy/TwitterConnector/CFS/ -name "*.pid"` ; do ps -p `cat $PID` | grep -v "  PID TTY          TIME CMD" ; done
+	for PID in `find /opt/Autonomy/IDOLServer/TwitterConnector/ -name "*.pid"` ; do ps -p `cat $PID` | grep -v "  PID TTY          TIME CMD" ; done
+	;;
+  restart)
+	# this could be done better
+	echo "stopping..."
+	/etc/init.d/TwitterConnector stop
+	echo "waiting..."
+	sleep 30
+	echo "starting..."
+	/etc/init.d/TwitterConnector start
+	;;
+  *)
+	echo "Usage: TwitterConnector {start|stop|status|restart}"
+	exit 1
+esac
+
+exit 0
+
+
