@@ -35,8 +35,8 @@
 # See how we were called.
 case "$1" in
   start)
-    echo -n "Starting Autonomy CFS: "
-	su - idol -c "cd /opt/Autonomy/IDOLServer/CFS/ ; nohup ./CFS.exe &"
+    #necho -n "Starting Autonomy CFS: "
+	#su - idol -c "cd /opt/Autonomy/IDOLServer/CFS/ ; nohup ./CFS.exe &"
     echo -n "Starting Autonomy Http Connector: "
 	su - idol -c "cd /opt/Autonomy/IDOLServer/HTTPConnector/ ; nohup ./httpconnector.exe &"
 	;;
@@ -44,18 +44,18 @@ case "$1" in
     echo -n "Stopping Autonomy Http Connector: "
 	cd "/opt/Autonomy/IDOLServer"
 	curl http://localhost:5432/action=STOP &> sed -e "s/<.+>/ /g"
-    echo -n "Stopping Autonomy CFS: "
-	cd "/opt/Autonomy/IDOLServer"
-	curl http://localhost:40300/action=STOP &> sed -e "s/<.+>/ /g"
+    #echo -n "Stopping Autonomy CFS: "
+	#cd "/opt/Autonomy/IDOLServer"
+	#curl http://localhost:40300/action=STOP &> sed -e "s/<.+>/ /g"
 	
 	;;
   status)
-        cd /opt/Autonomy/IDOLServer/CFS/
-        /opt/Autonomy/IDOLServer/CFS/CFS.exe --version
+        #cd /opt/Autonomy/IDOLServer/CFS/
+        #/opt/Autonomy/IDOLServer/CFS/CFS.exe --version
         cd /opt/Autonomy/IDOLServer/HTTPConnector
         /opt/Autonomy/IDOLServer/HTTPConnector/httpconnector.exe --version
 	echo "PID TTY          TIME CMD"
-	for PID in `find /opt/Autonomy/IDOLServer/CFS/ -name "*.pid"` ; do ps -p `cat $PID` | grep -v "  PID TTY          TIME CMD" ; done
+	#for PID in `find /opt/Autonomy/IDOLServer/CFS/ -name "*.pid"` ; do ps -p `cat $PID` | grep -v "  PID TTY          TIME CMD" ; done
 	for PID in `find /opt/Autonomy/IDOLServer/HTTPConnector/ -name "*.pid"` ; do ps -p `cat $PID` | grep -v "  PID TTY          TIME CMD" ; done
 	;;
   restart)
