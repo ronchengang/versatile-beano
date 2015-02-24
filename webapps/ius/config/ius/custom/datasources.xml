@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<datamodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:noNamespaceSchemaLocation="../schemas/datasources.xsd">
+    <datasources>
+        <datasource id="ius" extends="base">
+            <parameters>
+                <!--<parameter id="tabs">allTab,fileSystemTab,peopleTab,hpcaTab,hprmTab,sharepointTab,portalTab</parameter>-->
+                <parameter id="tabs">allTab</parameter>
+                <parameter id="personRef">http://localhost/data/People/${personId}.htm</parameter>
+                <parameter id="personImgRef">http://localhost/data/People/img/${personId}.jpg</parameter>
+                <parameter id="enableDocumentPreviewEngine">false</parameter>
+                <parameter id="peopleDatabaseMatch">People</parameter>
+                <parameter id="peopleDatabaseUserIdField">USERID</parameter>
+                <parameter id="documentsDatabaseMatch">Filesystem</parameter>
+            </parameters>
+        </datasource>
+
+         <datasource id="fileSystemTab" extends="filesystemItemTab">
+            <parameters>
+                <parameter id="databaseMatch">Filesystem</parameter>
+                <parameter id="columns">icon,actions,title,modifiedDate,createDate,application,fileLength</parameter>
+                <parameter id="sortOptions">title:DRETITLE</parameter>
+                <parameter id="FieldName">DRIVELETTER,APPNAME,FOLDER1</parameter>
+                <parameter id="mainViewPrintFields">FOLDERPATH,APPNAME,FILEMODIFIEDTIME,FILECREATEDTIME,DOCUMENTSIZE,FILELENGTH</parameter>
+                <parameter id="briefViewPrintFields"></parameter>
+                <parameter id="tableViewPrintFields">FILECREATEDTIME,FILEMODIFIEDTIME,APPNAME,FILELENGTH,DOCUMENTSIZE</parameter>
+                <parameter id="expressFields">title:DRETITLE,author:AUTHOR,folder:FOLDER*</parameter>
+            </parameters>
+        </datasource>
+        <datasource id="Filesystem" extends="fileSystemItem">
+            <parameters>
+                <parameter id="itemListHeaderProperties">/json/fileSystem/fileSystemItemListHeaderProperties.xml</parameter>
+                <parameter id="itemListFooterProperties">/json/fileSystem/fileSystemItemListFooterProperties.xml</parameter>
+                <parameter id="itemListOtherProperties">/json/fileSystem/fileSystemItemListOtherProperties.xml</parameter>
+                <parameter id="itemListTableProperties">/json/fileSystem/fileSystemItemListTableProperties.xml</parameter>
+                <parameter id="itemListEmailProperties">json/fileSystem/fileSystemItemListEmailProperties.xml</parameter>
+                <parameter id="moreDetailsPrintFields">FOLDERPATH,APPNAME,FILEMODIFIEDTIME,FILECREATEDTIME,DOCUMENTSIZE,FILELENGTH</parameter>
+            </parameters>
+        </datasource>
+
+        <datasource id="peopleTab" extends="peopleItemTab">
+             <parameters>
+                <parameter id="databaseMatch">${registrationParams.peopleDatabaseMatch}</parameter>
+            </parameters>
+        </datasource>
+        <datasource id="People" extends="peopleItem"/>
+
+        <datasource id="sharepointTab" extends="sharepointItemTab">
+            <parameters>
+                <parameter id="databaseMatch">SharepointRemote</parameter>
+                <parameter id="FieldName">SP_AUTHOR,APPNAME,LISTTITLE,SITETITLE</parameter>
+            </parameters>
+        </datasource>
+        <datasource id="SharepointRemote" extends="sharePointItem">
+            <parameters>
+                <parameter id="moreDetailsPrintFields">FILEACCESSEDTIME,FILECREATEDTIME,FILEMODIFIEDTIME,SP_CONTENTTYPE,EMAILFROM,EMAILTO,EMAILCC,LISTTITLE,SITETITLE,PAGECOUNT</parameter>
+                <parameter id="typeExtensionFallbackProperty">DREREFERENCE</parameter>
+                <parameter id="typeProperty">DOCUMENTTYPE</parameter>
+                <parameter id="connectorPort">1234</parameter>
+            </parameters>
+        </datasource>
+
+        <datasource id="hpcaTab" extends="hpcaItemTab">
+            <parameters>
+                <parameter id="databaseMatch">ACA</parameter>
+            </parameters>
+        </datasource>
+        <datasource id="ACA" extends="hpcaItem">
+            <parameters>
+                <parameter id="moreDetailsPrintFields">FROM,TO,CC</parameter>
+                <parameter id="connectorHost">hpcaConnectorHost</parameter>
+                <parameter id="connectorPort">10000</parameter>
+            </parameters>
+            <commands>
+                <command id="viewEmailPreview" className="com.interwoven.web.core.command.CorePageCommand">
+                    <parameters>
+                        <parameter id="emailFrom">FROM</parameter>
+                        <parameter id="emailTo">TO</parameter>
+                        <parameter id="emailCc">CC</parameter>
+                        <parameter id="emailBcc">BCC</parameter>
+                        <parameter id="emailSubject">SUBJECT</parameter>
+                        <parameter id="emailSentDate">SENT</parameter>
+                        <parameter id="emailDelimiter">,</parameter>
+                        <parameter id="emailShowBcc">true</parameter>
+                    </parameters>
+                    <views>
+                        <view id="main" mainContent="/json/resultItem/viewEmailPreview.xml"/>
+                    </views>
+                </command>
+            </commands>
+        </datasource>
+
+        <datasource id="hprmTab" extends="hprmItemTab">
+            <parameters>
+                <parameter id="databaseMatch">HPRM</parameter>
+            </parameters>
+        </datasource>
+        <datasource id="HPRM" extends="hprmItem" />
+    </datasources>
+</datamodel>
+
