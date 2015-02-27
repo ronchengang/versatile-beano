@@ -10,12 +10,12 @@
                 <parameter id="enableDocumentPreviewEngine">false</parameter>
                 <parameter id="peopleDatabaseMatch">People</parameter>
                 <parameter id="peopleDatabaseUserIdField">USERID</parameter>
-                <parameter id="documentsDatabaseMatch">Filesystem</parameter>
+                <parameter id="documentsDatabaseMatch">News+twitter</parameter>
             </parameters>
         </datasource>
 
         <datasource id="twitterItemTab" extends="search">
-           <propertyRelations>
+           <!--propertyRelations>
                 <propertyRelation id="FOLDERPATH">
                     <property name="FOLDER1"/>
                     <property name="FOLDER2"/>
@@ -23,18 +23,18 @@
                     <property name="FOLDER4"/>
                     <property name="FOLDER5"/>
                 </propertyRelation>
-			</propertyRelations>
+			</propertyRelations-->
             <parameters>
                 <parameter id="tabType">twitterItemTab</parameter>
-                <parameter id="columns">icon,actions,title,modifiedDate,createDate,application,fileLength</parameter>
-	            <parameter id="sortOptions">title:DRETITLE</parameter>
-                <parameter id="FieldName">DRIVELETTER,APPNAME,FOLDER1</parameter>
-                <parameter id="mainViewPrintFields">FOLDERPATH,APPNAME,FILEMODIFIEDTIME,FILECREATEDTIME,DOCUMENTSIZE,FILELENGTH</parameter>
-                <parameter id="briefViewPrintFields"></parameter>
-                <parameter id="tableViewPrintFields">FILECREATEDTIME,FILEMODIFIEDTIME,APPNAME,FILELENGTH,DOCUMENTSIZE</parameter>
-                <parameter id="exportResultsPrintFields">DRETITLE,DREREFERENCE,autn_date,FOLDERPATH</parameter>
-                <parameter id="expressFields">title:DRETITLE,author:AUTHOR,folder:FOLDER*</parameter>
-                <parameter id="queryBuilderFieldName">ATTACHMENT:boolean,WIDTH__PIXELS_:number,HEIGHT__PIXELS_:number,FOLDER*:string</parameter>
+				<!--parameter id="columns">icon,actions,user__name,database,place__name,created_at</parameter>
+	            <parameter id="sortOptions">date</parameter>
+                <parameter id="FieldName">user__name,database,place__name,created_at,text</parameter>
+                <parameter id="mainViewPrintFields">user__name,database,place__name,created_at,text</parameter>
+                <parameter id="briefViewPrintFields">user__name,text</parameter>
+                <parameter id="tableViewPrintFields">>user__name,database,place__name,created_at,text</parameter>
+                <parameter id="exportResultsPrintFields">>user__name,database,place__name,created_at,text</parameter>
+                <parameter id="expressFields">user__name,text</parameter-->
+                <!--parameter id="queryBuilderFieldName">ATTACHMENT:boolean,WIDTH__PIXELS_:number,HEIGHT__PIXELS_:number,FOLDER*:string</parameter-->
             </parameters>
 		</datasource>
 		<datasource id="twitterItem" extends="resultItem">
@@ -56,7 +56,7 @@
                         <parameter id="commonQueryString">predict=true&amp;outputencoding=UTF8&amp;combine=simple+fieldcheck&amp;anyLanguage=true</parameter>
                         <parameter id="queryString">action=Suggest&amp;Print=Fields&amp;minscore=70&amp;summary=context&amp;sentences=0&amp;characters=400&amp;maxresults=10</parameter>
                         <parameter id="queryParams">reference,DontMatchReference,databaseMatch</parameter>
-                        <parameter id="PrintFields">IMPORTMAGICEXTENSION,IM_EDITWHEN,IM_AUTHORFULLNAME,FOLDERPATH</parameter>
+                        <parameter id="PrintFields">user__name,database,place__name,created_at,text</parameter>
                     </parameters>
                     <views>
                         <view id="main" mainContent="/json/filesystem/fileSystemItemZoomDetail_eastTopPanel.xml"/>
@@ -85,6 +85,14 @@
         <datasource id="twitterTab" extends="twitterItemTab">
              <parameters>
                 <parameter id="databaseMatch">twitter</parameter>
+				<parameter id="columns">icon,actions,user__name,database,place__name,created_at</parameter>
+	            <parameter id="sortOptions">date</parameter>
+                <parameter id="FieldName">user__name,database,place__name,created_at,text</parameter>
+                <parameter id="mainViewPrintFields">user__name,database,place__name,created_at,text</parameter>
+                <parameter id="briefViewPrintFields">user__name,text</parameter>
+                <parameter id="tableViewPrintFields">>user__name,database,place__name,created_at,text</parameter>
+                <parameter id="exportResultsPrintFields">>user__name,database,place__name,created_at,text</parameter>
+                <parameter id="expressFields">user__name,text</parameter>
             </parameters>
         </datasource>
         <datasource id="Twitter" extends="twitterItem"/>
