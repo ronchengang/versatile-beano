@@ -11,6 +11,9 @@
                 <parameter id="peopleDatabaseMatch">People</parameter>
                 <parameter id="peopleDatabaseUserIdField">USERID</parameter>
                 <parameter id="documentsDatabaseMatch">News+twitter</parameter>
+				<parameter id="requiredPrintFields">DREREFERENCE,DREDATE,DREDBNAME,AUTN_IDENTIFIER,IUS_COMMENTS_COUNT,IUS_RATING_AVERAGE,IUS_RATING_COUNT,IM_VOTE_UP,_TAG_*</parameter>
+                <parameter id="commonQueryString">sentences=0&amp;predict=true&amp;outputencoding=UTF8&amp;combine=simple&amp;anyLanguage=true&amp;expandquery=true&amp;xmlmeta=true</parameter>
+                <parameter id="commonQueryParams"></parameter>
             </parameters>
         </datasource>
 
@@ -41,19 +44,19 @@
 			<parameters>
                 <parameter id="resultItemType">twitterItem</parameter>
                 <parameter id="typeGroup">twitterItem</parameter>
-                <parameter id="itemListHeaderProperties">/json/fileSystem/fileSystemItemListHeaderProperties.xml</parameter>
-                <parameter id="itemListFooterProperties">/json/fileSystem/fileSystemItemListFooterProperties.xml</parameter>
-                <parameter id="itemListOtherProperties">/json/fileSystem/fileSystemItemListOtherProperties.xml</parameter>
-                <parameter id="itemListTableProperties">/json/fileSystem/fileSystemItemListTableProperties.xml</parameter>
-                <parameter id="itemListEmailProperties">json/fileSystem/fileSystemItemListEmailProperties.xml</parameter>
-                <parameter id="moreDetailsPrintFields">FOLDERPATH,APPNAME,FILEMODIFIEDTIME,FILECREATEDTIME,DOCUMENTSIZE,FILELENGTH</parameter>
-                <parameter id="connectorPort">7100</parameter>
+                <parameter id="itemListHeaderProperties">../custom/views/json/twitter/twitterItemListHeaderProperties.xml</parameter>
+                <parameter id="itemListFooterProperties">../custom/views/json/twitter/twitterItemListFooterProperties.xml</parameter>
+                <parameter id="itemListOtherProperties">../custom/views/json/twitter/twitterItemListOtherProperties.xml</parameter>
+                <parameter id="itemListTableProperties">../custom/views/json/twitter/twitterItemListTableProperties.xml</parameter>
+                <parameter id="itemListEmailProperties">../custom/views/json/twitter/twitterItemListEmailProperties.xml</parameter>
+                <parameter id="moreDetailsPrintFields">ENTITIES_HASHTAGS__TEXT,ENTITIES_USER_MENTIONS__SCREEN_NAME,RETWEETED_STATUS_USER__NAME</parameter>
+                <parameter id="connectorPort">7024</parameter>
                 <parameter id="modified_date">${item.autn:content.DOCUMENT.FILEMODIFIEDTIME}</parameter>
             </parameters>
 			<commands>
                 <command id="zoomDetail_EastTopPanel" className="com.interwoven.web.core.command.CorePageCommand">
                     <parameters>
-                        <parameter id="commonQueryString">predict=true&amp;outputencoding=UTF8&amp;combine=simple+fieldcheck&amp;anyLanguage=true</parameter>
+                        <parameter id="commonQueryString">predict=true&amp;outputencoding=UTF8&amp;combine=simple&amp;anyLanguage=true</parameter>
                         <parameter id="queryString">action=Suggest&amp;Print=Fields&amp;minscore=70&amp;summary=context&amp;sentences=0&amp;characters=400&amp;maxresults=10</parameter>
                         <parameter id="queryParams">reference,DontMatchReference,databaseMatch</parameter>
                         <parameter id="PrintFields">user__name,database,place__name,created_at,text</parameter>
