@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <w:root xmlns:w="http://www.interwoven.com/worksite/2008/views/view.xsd">
 
+	<w:property id="text" value="${fn:escJS(item.autn:content.DOCUMENT.TEXT)}" caption="text"/>
+				
 </w:root>

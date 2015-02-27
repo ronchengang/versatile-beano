@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <w:root xmlns:w="http://www.interwoven.com/worksite/2008/views/view.xsd">
-    <w:set var="pathvar" value="${item.autn:reference}"/>
-    <w:set var="pathname" value="${fn:splitString(pathvar,':')}"/>
-
+    
     <w:parameter name="name" value="${item.autn:content.DOCUMENT.USER__NAME}"/>
-    <w:parameter name="size" value="${tempSize}"/>
+	
 </w:root>

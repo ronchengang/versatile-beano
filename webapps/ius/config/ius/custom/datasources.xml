@@ -92,7 +92,7 @@
 				<parameter id="columns">icon,actions,user__name,text,created_at</parameter>
 	            <parameter id="sortOptions">date</parameter>
                 <parameter id="FieldName">user__name,text,place__name,created_at</parameter>
-                <parameter id="mainViewPrintFields">user__name,text,place__name,created_at</parameter>
+                <parameter id="mainViewPrintFields">text,place*,source*,entities*,user*,created_at</parameter>
                 <parameter id="briefViewPrintFields">user__name,text</parameter>
                 <parameter id="tableViewPrintFields">user__name,text,created_at</parameter>
                 <parameter id="exportResultsPrintFields">user__name,text,place__name,created_at</parameter>
