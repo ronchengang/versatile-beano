@@ -3,7 +3,7 @@
     <!--group id="myCustomCaptionGroup">
         <caption id="myCustomCaptionId">MyCustomCaption</caption>
     </group-->
-    <group id="tab">
+    <group id="search">
         <caption id="twitterTab">twitter</caption>
     </group>
 </captions>

@@ -4,8 +4,7 @@
     <datasources>
         <datasource id="ius" extends="base">
             <parameters>
-                <!--<parameter id="tabs">allTab,fileSystemTab,peopleTab,hpcaTab,hprmTab,sharepointTab,portalTab</parameter>-->
-                <parameter id="tabs">allTab</parameter>
+                <parameter id="tabs">allTab,twitterTab</parameter>
                 <parameter id="personRef">http://localhost/data/People/${personId}.htm</parameter>
                 <parameter id="personImgRef">http://localhost/data/People/img/${personId}.jpg</parameter>
                 <parameter id="enableDocumentPreviewEngine">false</parameter>
@@ -14,6 +13,81 @@
                 <parameter id="documentsDatabaseMatch">Filesystem</parameter>
             </parameters>
         </datasource>
+
+        <datasource id="twitterItemTab" extends="search">
+           <propertyRelations>
+                <propertyRelation id="FOLDERPATH">
+                    <property name="FOLDER1"/>
+                    <property name="FOLDER2"/>
+                    <property name="FOLDER3"/>
+                    <property name="FOLDER4"/>
+                    <property name="FOLDER5"/>
+                </propertyRelation>
+			</propertyRelations>
+            <parameters>
+                <parameter id="tabType">twitterItemTab</parameter>
+                <parameter id="columns">icon,actions,title,modifiedDate,createDate,application,fileLength</parameter>
+	            <parameter id="sortOptions">title:DRETITLE</parameter>
+                <parameter id="FieldName">DRIVELETTER,APPNAME,FOLDER1</parameter>
+                <parameter id="mainViewPrintFields">FOLDERPATH,APPNAME,FILEMODIFIEDTIME,FILECREATEDTIME,DOCUMENTSIZE,FILELENGTH</parameter>
+                <parameter id="briefViewPrintFields"></parameter>
+                <parameter id="tableViewPrintFields">FILECREATEDTIME,FILEMODIFIEDTIME,APPNAME,FILELENGTH,DOCUMENTSIZE</parameter>
+                <parameter id="exportResultsPrintFields">DRETITLE,DREREFERENCE,autn_date,FOLDERPATH</parameter>
+                <parameter id="expressFields">title:DRETITLE,author:AUTHOR,folder:FOLDER*</parameter>
+                <parameter id="queryBuilderFieldName">ATTACHMENT:boolean,WIDTH__PIXELS_:number,HEIGHT__PIXELS_:number,FOLDER*:string</parameter>
+            </parameters>
+		</datasource>
+		<datasource id="twitterItem" extends="resultItem">
+			<parameters>
+                <parameter id="resultItemType">twitterItem</parameter>
+                <parameter id="typeGroup">twitterItem</parameter>
+                <parameter id="itemListHeaderProperties">/json/fileSystem/fileSystemItemListHeaderProperties.xml</parameter>
+                <parameter id="itemListFooterProperties">/json/fileSystem/fileSystemItemListFooterProperties.xml</parameter>
+                <parameter id="itemListOtherProperties">/json/fileSystem/fileSystemItemListOtherProperties.xml</parameter>
+                <parameter id="itemListTableProperties">/json/fileSystem/fileSystemItemListTableProperties.xml</parameter>
+                <parameter id="itemListEmailProperties">json/fileSystem/fileSystemItemListEmailProperties.xml</parameter>
+                <parameter id="moreDetailsPrintFields">FOLDERPATH,APPNAME,FILEMODIFIEDTIME,FILECREATEDTIME,DOCUMENTSIZE,FILELENGTH</parameter>
+                <parameter id="connectorPort">7100</parameter>
+                <parameter id="modified_date">${item.autn:content.DOCUMENT.FILEMODIFIEDTIME}</parameter>
+            </parameters>
+			<commands>
+                <command id="zoomDetail_EastTopPanel" className="com.interwoven.web.core.command.CorePageCommand">
+                    <parameters>
+                        <parameter id="commonQueryString">predict=true&amp;outputencoding=UTF8&amp;combine=simple+fieldcheck&amp;anyLanguage=true</parameter>
+                        <parameter id="queryString">action=Suggest&amp;Print=Fields&amp;minscore=70&amp;summary=context&amp;sentences=0&amp;characters=400&amp;maxresults=10</parameter>
+                        <parameter id="queryParams">reference,DontMatchReference,databaseMatch</parameter>
+                        <parameter id="PrintFields">IMPORTMAGICEXTENSION,IM_EDITWHEN,IM_AUTHORFULLNAME,FOLDERPATH</parameter>
+                    </parameters>
+                    <views>
+                        <view id="main" mainContent="/json/filesystem/fileSystemItemZoomDetail_eastTopPanel.xml"/>
+                    </views>
+                </command>
+                <command id="zoom_fileSystemItemSameFolder" className="com.interwoven.web.core.command.CorePageCommand">
+					<parameters>
+						<parameter id="queryString">action=query&amp;print=all&amp;text=*&amp;maxresults=10&amp;combine=FOLDERPATH</parameter>
+						<parameter id="queryParams">FieldText,Text,databaseMatch</parameter>
+					</parameters>
+					<views>
+						<view id="main" mainContent="/json/fileSystem/fileSystemItemZoomDetail_eastTopPanel_firstPanel.xml"/>
+					</views>
+				</command>
+			</commands>
+			<actionSets>
+				<actionSet id="default">
+					<action id="goToMashupPage"/>
+					<action id="previewWindowView"/>
+					<action id="viewCachedContent"/>
+                    <action id="downloadAction" />
+				</actionSet>
+			</actionSets>
+		</datasource>
+		
+        <datasource id="twitterTab" extends="twitterItemTab">
+             <parameters>
+                <parameter id="databaseMatch">twitter</parameter>
+            </parameters>
+        </datasource>
+        <datasource id="Twitter" extends="twitterItem"/>
 
          <datasource id="fileSystemTab" extends="filesystemItemTab">
             <parameters>
