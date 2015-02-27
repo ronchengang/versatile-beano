@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <w:root xmlns:w="http://www.interwoven.com/worksite/2008/views/view.xsd">
 
-    <w:set var="tempSize" value="${item.autn:content.DOCUMENT.DOCUMENTSIZE}"/>
-    <w:set var="tempSize" value="${item.autn:content.DOCUMENT.FILELENGTH}" test="${empty(tempSize) and not(empty(item.autn:content.DOCUMENT.FILELENGTH))}"/>
-    <w:set var="tempSize" value="" test="${empty(tempSize)}"/>
+    <w:property id="user__name" value="${item.autn:content.DOCUMENT.USER__NAME}" class="iwov-click-source"
+                href="${titleHref}" command="${titleCommand}" caption="user__name"/>
+	<w:property id="text" value="${fn:escJS(item.autn:content.DOCUMENT.'TEXT)}" class="iwov-click-source"
+                href="${titleHref}" command="${titleCommand}" caption="text"/>
+	<w:property id="place__name" value="${item.autn:content.DOCUMENT.PLACE__NAME}" class="iwov-click-source"
+                href="${titleHref}" command="${titleCommand}" caption="place__name"/>
+	<w:property id="created_at" value="${item.autn:content.DOCUMENT.CREATED_AT}" class="iwov-click-source"
+                href="${titleHref}" command="${titleCommand}" caption="created_at"/>
 
-    <w:property id="title" value="${item.autn:content.DOCUMENT.DRETITLE}" class="iwov-click-source"
-                href="${titleHref}" command="${titleCommand}" caption="title"/>
-    <w:property id="modifiedDate" value="${fn:getDate(item.autn:content.DOCUMENT.FILEMODIFIEDTIME,'MM/dd/yyyy')}" class="nolink"/>
-    <w:property id="createDate"  value="${fn:getDate(item.autn:content.DOCUMENT.FILECREATEDTIME,'MM/dd/yyyy')}" class="nolink"/>
-    <w:property id="fileLength"  value="${tempSize}"/>
-    <w:property id="application" value="${item.autn:content.DOCUMENT.APPNAME}"
-                href="javascript:IWOV.ius.applyFieldText('APPNAME', '${fn:escJS(item.autn:content.DOCUMENT.APPNAME)}')" />
 </w:root>

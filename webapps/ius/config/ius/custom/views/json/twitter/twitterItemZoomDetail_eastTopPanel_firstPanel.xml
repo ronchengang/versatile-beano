@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Related matters panel displayed in document mashup -->
 <w:root xmlns:w="http://www.interwoven.com/worksite/2008/views/view.xsd">
     <w:set var="isEmpty" value="true"/>
 
-    <w:panel collapsible="true" caption="sameFolder:fileSystemItem" cssClass="ius-360view-title">
+    <w:panel collapsible="true" caption="sameFolder:twitterItem" cssClass="ius-360view-title">
         <w:items>
             <w:panel cssClass="ius-item-container ius-scrollbars">
                 <w:items>
@@ -14,10 +13,10 @@
                         <w:set var="isEmpty" value="false"/>
                         <w:dataview>
                             <w:data>
-                                <w:parameter name="contactName" value="${item.autn:content.DOCUMENT.AUTHOR}"/>
+                                <w:parameter name="userName" value="${item.autn:content.DOCUMENT.USER__NAME}"/>
                                 <w:parameter name="ref" value="${fn:escJS(item.autn:reference)}"/>
-                                <w:parameter name="title" value="${item.autn:title}"/>
-                                <w:parameter name="modifiedDate" value="${fn:getDate(item.autn:content.DOCUMENT.FILEMODIFIEDTIME,'MM/dd/yyyy')}"/>
+                                <w:parameter name="text" value="${item.autn:content.DOCUMENT.TEXT}"/>
+                                <w:parameter name="modifiedDate" value="${fn:getDate(item.autn:content.DOCUMENT.TIMESTAMP_MS,'dd/MM/yyyy')}"/>
                                 <w:parameter name="databaseMatch" value="${item.autn:database}"/>
                                 <w:parameter name="icon" value="${icon}" />
                             </w:data>
@@ -27,8 +26,8 @@
                                         <div class="iwov-icon50 iwov-img-{icon}-50">&amp;nbsp;</div>
                                     </div>
                                     <div class="ius-item-text"  onclick="IWOV.ius.showMashup('resultItem','{ref}','','','{databaseMatch}')">
-                                        <div class="ius-item-title">{title}</div>
-                                        <div class="ius-item-property">{contactName}</div>
+                                        <div class="ius-item-title">{text}</div>
+                                        <div class="ius-item-property">{userName}</div>
                                         <div class="ius-item-property">{modifiedDate}</div>
                                     </div>
                                 </div>

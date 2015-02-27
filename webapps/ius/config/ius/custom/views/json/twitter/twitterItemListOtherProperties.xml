@@ -3,6 +3,6 @@
     <w:set var="pathvar" value="${item.autn:reference}"/>
     <w:set var="pathname" value="${fn:splitString(pathvar,':')}"/>
 
-    <w:parameter name="name" value="${item.autn:content.DOCUMENT.DRETITLE}"/>
+    <w:parameter name="name" value="${item.autn:content.DOCUMENT.USER__NAME}"/>
     <w:parameter name="size" value="${tempSize}"/>
 </w:root>

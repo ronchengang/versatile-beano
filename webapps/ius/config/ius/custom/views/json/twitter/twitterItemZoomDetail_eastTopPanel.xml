@@ -19,7 +19,7 @@
 
     <w:panel cssClass="ius-auto-update-container">
         <w:items>
-    		<w:invoke operation="zoom_fileSystemItemSameFolder" />
+    		<w:invoke operation="zoom_twitterItemSameFolder" />
     		<w:div cssClass="compass-div-line"/>
 
             <w:panel collapsible="true" caption="relatedassets:discovery" cssClass="ius-360view-title">
@@ -34,7 +34,7 @@
                                 <w:dataview>
                                     <w:data>
                                         <w:parameter name="reference" value="${fn:escJS(item.autn:reference)}"/>
-                                        <w:parameter name="thumb" value = "./images/compass/document_placeholder.png"/>
+                                        <w:parameter name="thumb" value = "./config/ius/custom/images/twitter/Twitter_logo_blue_28x23.png"/>
                                         <w:parameter name="thumb" value="${item.autn:content.DOCUMENT.THUMB)" test="${item.autn:content.DOCUMENT.THUMB}"/>
                                         <w:parameter name="databaseMatch" value="${databaseMatch}"/>
                                         <w:parameter name="icon" value="${icon}" />

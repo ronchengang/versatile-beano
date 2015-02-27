@@ -11,6 +11,7 @@
                 <parameter id="peopleDatabaseMatch">People</parameter>
                 <parameter id="peopleDatabaseUserIdField">USERID</parameter>
                 <parameter id="documentsDatabaseMatch">News+twitter</parameter>
+		        <parameter id="matchAllTerms">true</parameter>
 				<parameter id="requiredPrintFields">DREREFERENCE,DREDATE,DREDBNAME,AUTN_IDENTIFIER,IUS_COMMENTS_COUNT,IUS_RATING_AVERAGE,IUS_RATING_COUNT,IM_VOTE_UP,_TAG_*</parameter>
                 <parameter id="commonQueryString">sentences=0&amp;predict=true&amp;outputencoding=UTF8&amp;combine=simple&amp;anyLanguage=true&amp;expandquery=true&amp;xmlmeta=true</parameter>
                 <parameter id="commonQueryParams"></parameter>
@@ -49,7 +50,6 @@
                 <parameter id="itemListOtherProperties">../custom/views/json/twitter/twitterItemListOtherProperties.xml</parameter>
                 <parameter id="itemListTableProperties">../custom/views/json/twitter/twitterItemListTableProperties.xml</parameter>
                 <parameter id="itemListEmailProperties">../custom/views/json/twitter/twitterItemListEmailProperties.xml</parameter>
-                <parameter id="moreDetailsPrintFields">ENTITIES_HASHTAGS__TEXT,ENTITIES_USER_MENTIONS__SCREEN_NAME,RETWEETED_STATUS_USER__NAME</parameter>
                 <parameter id="connectorPort">7024</parameter>
                 <parameter id="modified_date">${item.autn:content.DOCUMENT.FILEMODIFIEDTIME}</parameter>
             </parameters>
@@ -62,16 +62,17 @@
                         <parameter id="PrintFields">user__name,database,place__name,created_at,text</parameter>
                     </parameters>
                     <views>
-                        <view id="main" mainContent="/json/filesystem/fileSystemItemZoomDetail_eastTopPanel.xml"/>
+                        <view id="main" mainContent="../custom/views/json/twitter/twitterItemZoomDetail_eastTopPanel.xml"/>
                     </views>
                 </command>
                 <command id="zoom_fileSystemItemSameFolder" className="com.interwoven.web.core.command.CorePageCommand">
 					<parameters>
-						<parameter id="queryString">action=query&amp;print=all&amp;text=*&amp;maxresults=10&amp;combine=FOLDERPATH</parameter>
+						<!--parameter id="queryString">action=query&amp;print=all&amp;text=*&amp;maxresults=10&amp;combine=FOLDERPATH</parameter-->
+						<parameter id="queryString">action=query&amp;print=all&amp;text=*&amp;maxresults=10</parameter>
 						<parameter id="queryParams">FieldText,Text,databaseMatch</parameter>
 					</parameters>
 					<views>
-						<view id="main" mainContent="/json/fileSystem/fileSystemItemZoomDetail_eastTopPanel_firstPanel.xml"/>
+						<view id="main" mainContent="../custom/views/json/twitter/twitterItemZoomDetail_eastTopPanel_firstPanel.xml"/>
 					</views>
 				</command>
 			</commands>
@@ -88,13 +89,13 @@
         <datasource id="twitterTab" extends="twitterItemTab">
              <parameters>
                 <parameter id="databaseMatch">twitter</parameter>
-				<parameter id="columns">icon,actions,user__name,database,place__name,created_at</parameter>
+				<parameter id="columns">icon,actions,user__name,text,created_at</parameter>
 	            <parameter id="sortOptions">date</parameter>
-                <parameter id="FieldName">user__name,database,place__name,created_at,text</parameter>
-                <parameter id="mainViewPrintFields">user__name,database,place__name,created_at,text</parameter>
+                <parameter id="FieldName">user__name,text,place__name,created_at</parameter>
+                <parameter id="mainViewPrintFields">user__name,text,place__name,created_at</parameter>
                 <parameter id="briefViewPrintFields">user__name,text</parameter>
-                <parameter id="tableViewPrintFields">>user__name,database,place__name,created_at,text</parameter>
-                <parameter id="exportResultsPrintFields">>user__name,database,place__name,created_at,text</parameter>
+                <parameter id="tableViewPrintFields">user__name,text,created_at</parameter>
+                <parameter id="exportResultsPrintFields">user__name,text,place__name,created_at</parameter>
                 <parameter id="expressFields">user__name,text</parameter>
             </parameters>
         </datasource>
