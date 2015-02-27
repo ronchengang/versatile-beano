@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<captions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../schemas/captions.xsd">
+    <!--group id="myCustomCaptionGroup">
+        <caption id="myCustomCaptionId">MyCustomCaption</caption>
+    </group-->
+    <group id="tab">
+        <caption id="twitterTab">twitter</caption>
+    </group>
+</captions>
