@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<w:root xmlns:w="http://www.interwoven.com/worksite/2008/views/view.xsd">
+    
+    <w:parameter name="name" value="${item.autn:content.DOCUMENT.USER__NAME}"/>
+	
+</w:root>

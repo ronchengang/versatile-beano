@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<w:root xmlns:w="http://www.interwoven.com/worksite/2008/views/view.xsd">
+
+	<w:property id="PLACE__PLACE_TYPE" value="${item.autn:content.DOCUMENT.PLACE__PLACE_TYPE}" caption="PLACE__PLACE_TYPE"/>
+	<w:property id="PLACE__NAME" value="${item.autn:content.DOCUMENT.PLACE__NAME}" caption="PLACE__NAME"/>
+	<w:property id="PLACE__FULL_NAME" value="${item.autn:content.DOCUMENT.PLACE__FULL_NAME}" caption="PLACE__FULL_NAME"/>
+	<w:property id="PLACE__COUNTRY_CODE" value="${item.autn:content.DOCUMENT.PLACE__COUNTRY_CODE}" caption="PLACE__COUNTRY_CODE"/>
+	<w:property id="PLACE__COUNTRY" value="${item.autn:content.DOCUMENT.PLACE__COUNTRY}" caption="PLACE__COUNTRY"/>
+	<w:property id="SOURCE" value="${item.autn:content.DOCUMENT.SOURCE}" caption="SOURCE"/>
+	<w:property id="ENTITIES_HASHTAGS__TEXT" value="${item.autn:content.DOCUMENT.ENTITIES_HASHTAGS__TEXT}" caption="ENTITIES_HASHTAGS__TEXT"/>
+	<w:property id="USER__SCREEN_NAME" value="${item.autn:content.DOCUMENT.USER__SCREEN_NAME}" caption="USER__SCREEN_NAME"/>
+	<w:property id="USER__LOCATION" value="${item.autn:content.DOCUMENT.USER__LOCATION}" caption="USER__LOCATION"/>
+	<w:property id="USER__DESCRIPTION" value="${item.autn:content.DOCUMENT.USER__DESCRIPTION}" caption="USER__DESCRIPTION"/>
+	<w:property id="USER__FOLLOWERS_COUNT" value="${item.autn:content.DOCUMENT.USER__FOLLOWERS_COUNT}" caption="USER__FOLLOWERS_COUNT"/>
+	<w:property id="USER__STATUSES_COUNT" value="${item.autn:content.DOCUMENT.USER__STATUSES_COUNT}" caption="USER__STATUSES_COUNT"/>
+	<w:property id="USER__TIME_ZONE" value="${item.autn:content.DOCUMENT.USER__TIME_ZONE}" caption="USER__TIME_ZONE"/>
+	<w:property id="USER__FOLLOWERS_COUNT" value="${item.autn:content.DOCUMENT.USER__FOLLOWERS_COUNT}" caption="USER__FOLLOWERS_COUNT"/>
+	<w:property id="USER__FOLLOWERS_COUNT" value="${item.autn:content.DOCUMENT.USER__FOLLOWERS_COUNT}" caption="USER__FOLLOWERS_COUNT"/>
+
+</w:root>
