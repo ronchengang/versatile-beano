@@ -4,20 +4,22 @@
     <datasources>
         <datasource id="ius" extends="base">
             <parameters>
-                <parameter id="tabs">allTab,twitterTab,newsTab</parameter>
+                <parameter id="tabs">allTab,fileSystemTab,twitterTab,sharepointTab</parameter>
                 <parameter id="personRef">http://localhost/data/People/${personId}.htm</parameter>
                 <parameter id="personImgRef">http://localhost/data/People/img/${personId}.jpg</parameter>
                 <parameter id="enableDocumentPreviewEngine">false</parameter>
                 <parameter id="peopleDatabaseMatch">People</parameter>
                 <parameter id="peopleDatabaseUserIdField">USERID</parameter>
-                <parameter id="documentsDatabaseMatch">News+twitter</parameter>
-		        <parameter id="matchAllTerms">false</parameter>
+                <parameter id="documentsDatabaseMatch">FileShare+twitter+www</parameter>
+                <parameter id="matchAllTerms">false</parameter>
 				<parameter id="requiredPrintFields">DREREFERENCE,DREDATE,DREDBNAME,AUTN_IDENTIFIER,IUS_COMMENTS_COUNT,IUS_RATING_AVERAGE,IUS_RATING_COUNT,IM_VOTE_UP,_TAG_*</parameter>
                 <parameter id="commonQueryString">sentences=0&amp;predict=true&amp;outputencoding=UTF8&amp;combine=simple&amp;anyLanguage=true&amp;expandquery=true&amp;xmlmeta=true</parameter>
                 <parameter id="commonQueryParams"></parameter>
+                <parameter id="enableDocumentPreviewEngine">true</parameter>
+                <parameter id="enableCompass">true</parameter>
+                <parameter id="connectorHost">localhost</parameter>				
             </parameters>
         </datasource>
-
         <datasource id="twitterItemTab" extends="search">
            <!--propertyRelations>
                 <propertyRelation id="FOLDERPATH">
@@ -91,7 +93,7 @@
                 <parameter id="databaseMatch">twitter</parameter>
 				<parameter id="columns">icon,actions,user__name,text,created_at</parameter>
 	            <parameter id="sortOptions">date</parameter>
-                <parameter id="FieldName">user__name,text,place__name,created_at</parameter>
+                <parameter id="FieldName">user__location,place,user__time_zone</parameter>
                 <parameter id="mainViewPrintFields">text,place*,source*,entities*,user*,created_at</parameter>
                 <parameter id="briefViewPrintFields">user__name,text</parameter>
                 <parameter id="tableViewPrintFields">user__name,text,created_at</parameter>
@@ -101,74 +103,10 @@
         </datasource>
         <datasource id="Twitter" extends="twitterItem"/>
 
-        <datasource id="newsItemTab" extends="search">
-            <parameters>
-                <parameter id="tabType">newsItemTab</parameter>
-			 </parameters>
-		</datasource>
-		<datasource id="newsItem" extends="resultItem">
-			<parameters>
-                <parameter id="resultItemType">newsItem</parameter>
-                <parameter id="typeGroup">newsItem</parameter>
-                <parameter id="itemListHeaderProperties">../custom/views/json/news/newsItemListHeaderProperties.xml</parameter>
-                <parameter id="itemListFooterProperties">../custom/views/json/news/newsItemListFooterProperties.xml</parameter>
-                <parameter id="itemListOtherProperties">../custom/views/json/news/newsItemListOtherProperties.xml</parameter>
-                <parameter id="itemListTableProperties">../custom/views/json/news/newsItemListTableProperties.xml</parameter>
-                <parameter id="itemListEmailProperties">../custom/views/json/news/newsItemListEmailProperties.xml</parameter>
-                <parameter id="connectorPort">7024</parameter>
-                <parameter id="modified_date">${item.autn:content.DOCUMENT.FILEMODIFIEDTIME}</parameter>
-            </parameters>
-			<commands>
-                <command id="zoomDetail_EastTopPanel" className="com.interwoven.web.core.command.CorePageCommand">
-                    <parameters>
-                        <parameter id="commonQueryString">predict=true&amp;outputencoding=UTF8&amp;combine=simple&amp;anyLanguage=true</parameter>
-                        <parameter id="queryString">action=Suggest&amp;Print=Fields&amp;minscore=70&amp;summary=context&amp;sentences=0&amp;characters=400&amp;maxresults=10</parameter>
-                        <parameter id="queryParams">reference,DontMatchReference,databaseMatch</parameter>
-                        <parameter id="PrintFields">title,locality,author,summary,filecreatedtime</parameter>
-                    </parameters>
-                    <views>
-                        <view id="main" mainContent="../custom/views/json/news/newsItemZoomDetail_eastTopPanel.xml"/>
-                    </views>
-                </command>
-                <command id="zoom_fileSystemItemSameFolder" className="com.interwoven.web.core.command.CorePageCommand">
-					<parameters>
-						<!--parameter id="queryString">action=query&amp;print=all&amp;text=*&amp;maxresults=10&amp;combine=FOLDERPATH</parameter-->
-						<parameter id="queryString">action=query&amp;print=all&amp;text=*&amp;maxresults=10</parameter>
-						<parameter id="queryParams">FieldText,Text,databaseMatch</parameter>
-					</parameters>
-					<views>
-						<view id="main" mainContent="../custom/views/json/news/newsItemZoomDetail_eastTopPanel_firstPanel.xml"/>
-					</views>
-				</command>
-			</commands>
-			<actionSets>
-				<actionSet id="default">
-					<action id="goToMashupPage"/>
-					<action id="previewWindowView"/>
-					<action id="viewCachedContent"/>
-                    <action id="downloadAction" />
-				</actionSet>
-			</actionSets>
-		</datasource>
-		
-        <datasource id="newsTab" extends="newsItemTab">
-             <parameters>
-                <parameter id="databaseMatch">news</parameter>
-				<parameter id="columns">icon,actions,spiderdomain,title,filecreatedtime</parameter>
-	            <parameter id="sortOptions">date</parameter>
-                <parameter id="FieldName">spiderdomain,title,locality,author,summary,filecreatedtime</parameter>
-                <parameter id="mainViewPrintFields">title,locality,author,summary,filecreatedtime</parameter>
-                <parameter id="briefViewPrintFields">spiderdomain,title</parameter>
-                <parameter id="tableViewPrintFields">spiderdomain,title,filecreatedtime</parameter>
-                <parameter id="exportResultsPrintFields">spiderdomain,title,summary,filecreatedtime</parameter>
-                <parameter id="expressFields">spiderdomain,title</parameter>
-            </parameters>
-        </datasource>
-        <datasource id="news" extends="newsItem"/>
-		
+
          <datasource id="fileSystemTab" extends="filesystemItemTab">
             <parameters>
-                <parameter id="databaseMatch">Filesystem</parameter>
+                <parameter id="databaseMatch">FileShare</parameter>
                 <parameter id="columns">icon,actions,title,modifiedDate,createDate,application,fileLength</parameter>
                 <parameter id="sortOptions">title:DRETITLE</parameter>
                 <parameter id="FieldName">DRIVELETTER,APPNAME,FOLDER1</parameter>
@@ -178,14 +116,15 @@
                 <parameter id="expressFields">title:DRETITLE,author:AUTHOR,folder:FOLDER*</parameter>
             </parameters>
         </datasource>
-        <datasource id="Filesystem" extends="fileSystemItem">
+        <datasource id="FileShare" extends="fileSystemItem">
             <parameters>
-                <parameter id="itemListHeaderProperties">/json/fileSystem/fileSystemItemListHeaderProperties.xml</parameter>
-                <parameter id="itemListFooterProperties">/json/fileSystem/fileSystemItemListFooterProperties.xml</parameter>
-                <parameter id="itemListOtherProperties">/json/fileSystem/fileSystemItemListOtherProperties.xml</parameter>
-                <parameter id="itemListTableProperties">/json/fileSystem/fileSystemItemListTableProperties.xml</parameter>
-                <parameter id="itemListEmailProperties">json/fileSystem/fileSystemItemListEmailProperties.xml</parameter>
+                <parameter id="itemListHeaderProperties">../custom/views/json/fileSystem/fileSystemItemListHeaderProperties.xml</parameter>
+                <parameter id="itemListFooterProperties">../custom/views/json/fileSystem/fileSystemItemListFooterProperties.xml</parameter>
+                <parameter id="itemListOtherProperties">../custom/views/json/fileSystem/fileSystemItemListOtherProperties.xml</parameter>
+                <parameter id="itemListTableProperties">../custom/views/json/fileSystem/fileSystemItemListTableProperties.xml</parameter>
+                <parameter id="itemListEmailProperties">../custom/views/json/fileSystem/fileSystemItemListEmailProperties.xml</parameter>
                 <parameter id="moreDetailsPrintFields">FOLDERPATH,APPNAME,FILEMODIFIEDTIME,FILECREATEDTIME,DOCUMENTSIZE,FILELENGTH</parameter>
+				<parameter id="connectorPort">1234</parameter>
             </parameters>
         </datasource>
 
