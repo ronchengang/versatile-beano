@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<w:root xmlns:w="http://www.interwoven.com/worksite/2008/views/view.xsd">
+
+	<w:property id="DREREFERENCE" value="${item.autn:content.DOCUMENT.DREREFERENCE}" caption="REFERENCE"/>
+	<w:property id="BIRTHDAY" value="${item.autn:content.DOCUMENT.BIRTHDAY}" caption="BIRTHDAY"/>
+	<w:property id="FIRST_NAME" value="${item.autn:content.DOCUMENT.FIRST_NAME}" caption="FIRST_NAME"/>
+	<w:property id="GENDER" value="${item.autn:content.DOCUMENT.GENDER}" caption="GENDER"/>
+	<w:property id="ITEM_TYPE" value="${item.autn:content.DOCUMENT.ITEM_TYPE}" caption="ITEM_TYPE"/>
+	<w:property id="LAST_NAME" value="${item.autn:content.DOCUMENT.SOURCE}" caption="LAST_NAME"/>
+	<w:property id="LINK" value="${item.autn:content.DOCUMENT.LINK}" caption="LINK"/>
+	<w:property id="LOCALE" value="${item.autn:content.DOCUMENT.LOCALE}" caption="LOCALE"/>
+	<w:property id="LIKES" value="${item.autn:content.DOCUMENT.LIKES}" caption="LIKES"/>
+	<w:property id="TIMEZONE" value="${item.autn:content.DOCUMENT.TIMEZONE}" caption="TIMEZONE"/>
+	<w:property id="ABOUT" value="${item.autn:content.DOCUMENT.ABOUT}" caption="ABOUT"/>
+	<w:property id="CATEGORY" value="${item.autn:content.DOCUMENT.CATEGORY}" caption="CATEGORY"/>
+	<w:property id="COMPANY_OVERVIEW" value="${item.autn:content.DOCUMENT.COMPANY_OVERVIEW}" caption="COMPANY_OVERVIEW"/>
+	<w:property id="FOUNDED" value="${item.autn:content.DOCUMENT.FOUNDED}" caption="FOUNDED"/>
+	<w:property id="GENERAL_INFO" value="${item.autn:content.DOCUMENT.GENERAL_INFO}" caption="GENERAL_INFO"/>
+	<w:property id="MISSION" value="${item.autn:content.DOCUMENT.MISSION}" caption="MISSION"/>
+	<w:property id="WEBSITE" value="${item.autn:content.DOCUMENT.GENERAL_INFO}" caption="WEBSITE"/>
+	<w:property id="USERNAME" value="${item.autn:content.DOCUMENT.GENERAL_INFO}" caption="USERNAME"/>
+
+</w:root>

@@ -4,20 +4,23 @@
     <datasources>
         <datasource id="ius" extends="base">
             <parameters>
-                <parameter id="tabs">allTab,twitterTab,newsTab</parameter>
+                <parameter id="tabs">allTab,fileSystemTab,twitterTab,peopleTab,wwwTab,facebookTab,sharepointTab,portalTab</parameter>
                 <parameter id="personRef">http://localhost/data/People/${personId}.htm</parameter>
                 <parameter id="personImgRef">http://localhost/data/People/img/${personId}.jpg</parameter>
                 <parameter id="enableDocumentPreviewEngine">false</parameter>
                 <parameter id="peopleDatabaseMatch">People</parameter>
                 <parameter id="peopleDatabaseUserIdField">USERID</parameter>
-                <parameter id="documentsDatabaseMatch">News+twitter</parameter>
-		        <parameter id="matchAllTerms">false</parameter>
+                <parameter id="documentsDatabaseMatch">FileShare+twitter+www+facebook</parameter>
+                <parameter id="matchAllTerms">false</parameter>
 				<parameter id="requiredPrintFields">DREREFERENCE,DREDATE,DREDBNAME,AUTN_IDENTIFIER,IUS_COMMENTS_COUNT,IUS_RATING_AVERAGE,IUS_RATING_COUNT,IM_VOTE_UP,_TAG_*</parameter>
                 <parameter id="commonQueryString">sentences=0&amp;predict=true&amp;outputencoding=UTF8&amp;combine=simple&amp;anyLanguage=true&amp;expandquery=true&amp;xmlmeta=true</parameter>
                 <parameter id="commonQueryParams"></parameter>
+                <parameter id="enableDocumentPreviewEngine">true</parameter>
+                <parameter id="enableCompass">true</parameter>
+                <parameter id="connectorHost">localhost</parameter>				
             </parameters>
         </datasource>
-
+		
         <datasource id="twitterItemTab" extends="search">
            <!--propertyRelations>
                 <propertyRelation id="FOLDERPATH">
@@ -91,7 +94,7 @@
                 <parameter id="databaseMatch">twitter</parameter>
 				<parameter id="columns">icon,actions,user__name,text,created_at</parameter>
 	            <parameter id="sortOptions">date</parameter>
-                <parameter id="FieldName">user__name,text,place__name,created_at</parameter>
+                <parameter id="FieldName">user__location,place,user__time_zone</parameter>
                 <parameter id="mainViewPrintFields">text,place*,source*,entities*,user*,created_at</parameter>
                 <parameter id="briefViewPrintFields">user__name,text</parameter>
                 <parameter id="tableViewPrintFields">user__name,text,created_at</parameter>
@@ -101,22 +104,22 @@
         </datasource>
         <datasource id="Twitter" extends="twitterItem"/>
 
-        <datasource id="newsItemTab" extends="search">
+        <datasource id="facebookItemTab" extends="search">
             <parameters>
-                <parameter id="tabType">newsItemTab</parameter>
-			 </parameters>
+                <parameter id="tabType">facebookItemTab</parameter>
+            </parameters>
 		</datasource>
-		<datasource id="newsItem" extends="resultItem">
+		<datasource id="facebookItem" extends="resultItem">
 			<parameters>
-                <parameter id="resultItemType">newsItem</parameter>
-                <parameter id="typeGroup">newsItem</parameter>
-                <parameter id="itemListHeaderProperties">../custom/views/json/news/newsItemListHeaderProperties.xml</parameter>
-                <parameter id="itemListFooterProperties">../custom/views/json/news/newsItemListFooterProperties.xml</parameter>
-                <parameter id="itemListOtherProperties">../custom/views/json/news/newsItemListOtherProperties.xml</parameter>
-                <parameter id="itemListTableProperties">../custom/views/json/news/newsItemListTableProperties.xml</parameter>
-                <parameter id="itemListEmailProperties">../custom/views/json/news/newsItemListEmailProperties.xml</parameter>
+                <parameter id="resultItemType">facebookItem</parameter>
+                <parameter id="typeGroup">facebookItem</parameter>
+                <parameter id="itemListHeaderProperties">../custom/views/json/facebook/facebookItemListHeaderProperties.xml</parameter>
+                <parameter id="itemListFooterProperties">../custom/views/json/facebook/facebookItemListFooterProperties.xml</parameter>
+                <parameter id="itemListOtherProperties">../custom/views/json/facebook/facebookItemListOtherProperties.xml</parameter>
+                <parameter id="itemListTableProperties">../custom/views/json/facebook/facebookItemListTableProperties.xml</parameter>
+                <parameter id="itemListEmailProperties">../custom/views/json/facebook/facebookItemListEmailProperties.xml</parameter>
                 <parameter id="connectorPort">7024</parameter>
-                <parameter id="modified_date">${item.autn:content.DOCUMENT.FILEMODIFIEDTIME}</parameter>
+                <parameter id="modified_date">${item.autn:content.DOCUMENT.UPDATED_TIME}</parameter>
             </parameters>
 			<commands>
                 <command id="zoomDetail_EastTopPanel" className="com.interwoven.web.core.command.CorePageCommand">
@@ -124,10 +127,10 @@
                         <parameter id="commonQueryString">predict=true&amp;outputencoding=UTF8&amp;combine=simple&amp;anyLanguage=true</parameter>
                         <parameter id="queryString">action=Suggest&amp;Print=Fields&amp;minscore=70&amp;summary=context&amp;sentences=0&amp;characters=400&amp;maxresults=10</parameter>
                         <parameter id="queryParams">reference,DontMatchReference,databaseMatch</parameter>
-                        <parameter id="PrintFields">title,locality,author,summary,filecreatedtime</parameter>
+                        <parameter id="PrintFields">DREREFERENCE,BIRTHDAY,FIRST_NAME,GENDER,ITEM_TYPE,LAST_NAME,LINK,LOCALE,LIKES,TIMEZONE,ABOUT,CATEGORY,COMPANY_OVERVIEW,FOUNDED,GENERAL_INFO,MISSION,WEBSITE,USERNAME</parameter>
                     </parameters>
                     <views>
-                        <view id="main" mainContent="../custom/views/json/news/newsItemZoomDetail_eastTopPanel.xml"/>
+                        <view id="main" mainContent="../custom/views/json/facebook/facebookItemZoomDetail_eastTopPanel.xml"/>
                     </views>
                 </command>
                 <command id="zoom_fileSystemItemSameFolder" className="com.interwoven.web.core.command.CorePageCommand">
@@ -137,7 +140,7 @@
 						<parameter id="queryParams">FieldText,Text,databaseMatch</parameter>
 					</parameters>
 					<views>
-						<view id="main" mainContent="../custom/views/json/news/newsItemZoomDetail_eastTopPanel_firstPanel.xml"/>
+						<view id="main" mainContent="../custom/views/json/facebook/facebookItemZoomDetail_eastTopPanel_firstPanel.xml"/>
 					</views>
 				</command>
 			</commands>
@@ -151,24 +154,89 @@
 			</actionSets>
 		</datasource>
 		
-        <datasource id="newsTab" extends="newsItemTab">
+        <datasource id="facebookTab" extends="facebookItemTab">
              <parameters>
-                <parameter id="databaseMatch">news</parameter>
-				<parameter id="columns">icon,actions,spiderdomain,title,filecreatedtime</parameter>
+                <parameter id="databaseMatch">facebook</parameter>
+				<parameter id="columns">name,link,likes,item_type,updated_time</parameter>
 	            <parameter id="sortOptions">date</parameter>
-                <parameter id="FieldName">spiderdomain,title,locality,author,summary,filecreatedtime</parameter>
-                <parameter id="mainViewPrintFields">title,locality,author,summary,filecreatedtime</parameter>
-                <parameter id="briefViewPrintFields">spiderdomain,title</parameter>
-                <parameter id="tableViewPrintFields">spiderdomain,title,filecreatedtime</parameter>
-                <parameter id="exportResultsPrintFields">spiderdomain,title,summary,filecreatedtime</parameter>
-                <parameter id="expressFields">spiderdomain,title</parameter>
+                <parameter id="FieldName">NAME,DREREFERENCE,BIRTHDAY,FIRST_NAME,GENDER,ITEM_TYPE,LAST_NAME,LINK,LOCALE,LIKES,TIMEZONE,ABOUT,CATEGORY,COMPANY_OVERVIEW,FOUNDED,GENERAL_INFO,MISSION,WEBSITE,USERNAME</parameter>
+                <parameter id="mainViewPrintFields">NAME,DREREFERENCE,BIRTHDAY,FIRST_NAME,GENDER,ITEM_TYPE,LAST_NAME,LINK,LOCALE,LIKES,TIMEZONE,ABOUT,CATEGORY,COMPANY_OVERVIEW,FOUNDED,GENERAL_INFO,MISSION,WEBSITE,USERNAME</parameter>
+                <parameter id="briefViewPrintFields">NAME,DREREFERENCE,BIRTHDAY,FIRST_NAME,GENDER,ITEM_TYPE,LAST_NAME,LINK,LOCALE,LIKES,TIMEZONE,ABOUT,CATEGORY,COMPANY_OVERVIEW,FOUNDED,GENERAL_INFO,MISSION,WEBSITE,USERNAME</parameter>
+                <parameter id="tableViewPrintFields">NAME,DREREFERENCE,BIRTHDAY,FIRST_NAME,GENDER,ITEM_TYPE,LAST_NAME,LINK,LOCALE,LIKES,TIMEZONE,ABOUT,CATEGORY,COMPANY_OVERVIEW,FOUNDED,GENERAL_INFO,MISSION,WEBSITE,USERNAME</parameter>
+                <parameter id="exportResultsPrintFields">NAME,DREREFERENCE,BIRTHDAY,FIRST_NAME,GENDER,ITEM_TYPE,LAST_NAME,LINK,LOCALE,LIKES,TIMEZONE,ABOUT,CATEGORY,COMPANY_OVERVIEW,FOUNDED,GENERAL_INFO,MISSION,WEBSITE,USERNAME</parameter>
+                <parameter id="expressFields">NAME,DREREFERENCE,BIRTHDAY,FIRST_NAME,GENDER,ITEM_TYPE,LAST_NAME,LINK,LOCALE,LIKES,TIMEZONE,ABOUT,CATEGORY,COMPANY_OVERVIEW,FOUNDED,GENERAL_INFO,MISSION,WEBSITE,USERNAME</parameter>
             </parameters>
         </datasource>
-        <datasource id="news" extends="newsItem"/>
+        <datasource id="Facebook" extends="facebookItem"/>
+
+        <datasource id="wwwItemTab" extends="search">
+            <parameters>
+                <parameter id="tabType">wwwItemTab</parameter>
+            </parameters>
+		</datasource>
+		<datasource id="wwwItem" extends="resultItem">
+			<parameters>
+                <parameter id="resultItemType">wwwItem</parameter>
+                <parameter id="typeGroup">wwwItem</parameter>
+                <parameter id="itemListHeaderProperties">../custom/views/json/www/wwwItemListHeaderProperties.xml</parameter>
+                <parameter id="itemListFooterProperties">../custom/views/json/www/wwwItemListFooterProperties.xml</parameter>
+                <parameter id="itemListOtherProperties">../custom/views/json/www/wwwItemListOtherProperties.xml</parameter>
+                <parameter id="itemListTableProperties">../custom/views/json/www/wwwItemListTableProperties.xml</parameter>
+                <parameter id="itemListEmailProperties">../custom/views/json/www/wwwItemListEmailProperties.xml</parameter>
+                <parameter id="connectorPort">5678</parameter>
+                <parameter id="modified_date">${item.autn:content.DOCUMENT.FILEMODIFIEDTIME}</parameter>
+            </parameters>
+			<commands>
+                <command id="zoomDetail_EastTopPanel" className="com.interwoven.web.core.command.CorePageCommand">
+                    <parameters>
+                        <parameter id="commonQueryString">predict=true&amp;outputencoding=UTF8&amp;combine=simple&amp;anyLanguage=true</parameter>
+                        <parameter id="queryString">action=Suggest&amp;Print=Fields&amp;minscore=70&amp;summary=context&amp;sentences=0&amp;characters=400&amp;maxresults=10</parameter>
+                        <parameter id="queryParams">reference,DontMatchReference,databaseMatch</parameter>
+                        <parameter id="PrintFields">user__name,database,place__name,created_at,text</parameter>
+                    </parameters>
+                    <views>
+                        <view id="main" mainContent="../custom/views/json/www/wwwItemZoomDetail_eastTopPanel.xml"/>
+                    </views>
+                </command>
+                <command id="zoom_fileSystemItemSameFolder" className="com.interwoven.web.core.command.CorePageCommand">
+					<parameters>
+						<!--parameter id="queryString">action=query&amp;print=all&amp;text=*&amp;maxresults=10&amp;combine=FOLDERPATH</parameter-->
+						<parameter id="queryString">action=query&amp;print=all&amp;text=*&amp;maxresults=10</parameter>
+						<parameter id="queryParams">FieldText,Text,databaseMatch</parameter>
+					</parameters>
+					<views>
+						<view id="main" mainContent="../custom/views/json/www/wwwItemZoomDetail_eastTopPanel_firstPanel.xml"/>
+					</views>
+				</command>
+			</commands>
+			<actionSets>
+				<actionSet id="default">
+					<action id="goToMashupPage"/>
+					<action id="previewWindowView"/>
+					<action id="viewCachedContent"/>
+                    <action id="downloadAction" />
+				</actionSet>
+			</actionSets>
+		</datasource>
 		
+        <datasource id="wwwTab" extends="wwwItemTab">
+             <parameters>
+                <parameter id="databaseMatch">www</parameter>
+				<parameter id="columns">icon,actions,user__name,text,created_at</parameter>
+	            <parameter id="sortOptions">date</parameter>
+                <parameter id="FieldName">user__location,place,user__time_zone</parameter>
+                <parameter id="mainViewPrintFields">text,place*,source*,entities*,user*,created_at</parameter>
+                <parameter id="briefViewPrintFields">user__name,text</parameter>
+                <parameter id="tableViewPrintFields">user__name,text,created_at</parameter>
+                <parameter id="exportResultsPrintFields">user__name,text,place__name,created_at</parameter>
+                <parameter id="expressFields">user__name,text</parameter>
+            </parameters>
+        </datasource>
+        <datasource id="Www" extends="wwwItem"/>
+
          <datasource id="fileSystemTab" extends="filesystemItemTab">
             <parameters>
-                <parameter id="databaseMatch">Filesystem</parameter>
+                <parameter id="databaseMatch">FileShare</parameter>
                 <parameter id="columns">icon,actions,title,modifiedDate,createDate,application,fileLength</parameter>
                 <parameter id="sortOptions">title:DRETITLE</parameter>
                 <parameter id="FieldName">DRIVELETTER,APPNAME,FOLDER1</parameter>
@@ -178,14 +246,15 @@
                 <parameter id="expressFields">title:DRETITLE,author:AUTHOR,folder:FOLDER*</parameter>
             </parameters>
         </datasource>
-        <datasource id="Filesystem" extends="fileSystemItem">
+        <datasource id="FileShare" extends="fileSystemItem">
             <parameters>
-                <parameter id="itemListHeaderProperties">/json/fileSystem/fileSystemItemListHeaderProperties.xml</parameter>
-                <parameter id="itemListFooterProperties">/json/fileSystem/fileSystemItemListFooterProperties.xml</parameter>
-                <parameter id="itemListOtherProperties">/json/fileSystem/fileSystemItemListOtherProperties.xml</parameter>
-                <parameter id="itemListTableProperties">/json/fileSystem/fileSystemItemListTableProperties.xml</parameter>
-                <parameter id="itemListEmailProperties">json/fileSystem/fileSystemItemListEmailProperties.xml</parameter>
+                <parameter id="itemListHeaderProperties">../custom/views/json/fileSystem/fileSystemItemListHeaderProperties.xml</parameter>
+                <parameter id="itemListFooterProperties">../custom/views/json/fileSystem/fileSystemItemListFooterProperties.xml</parameter>
+                <parameter id="itemListOtherProperties">../custom/views/json/fileSystem/fileSystemItemListOtherProperties.xml</parameter>
+                <parameter id="itemListTableProperties">../custom/views/json/fileSystem/fileSystemItemListTableProperties.xml</parameter>
+                <parameter id="itemListEmailProperties">../custom/views/json/fileSystem/fileSystemItemListEmailProperties.xml</parameter>
                 <parameter id="moreDetailsPrintFields">FOLDERPATH,APPNAME,FILEMODIFIEDTIME,FILECREATEDTIME,DOCUMENTSIZE,FILELENGTH</parameter>
+				<parameter id="connectorPort">1234</parameter>
             </parameters>
         </datasource>
 

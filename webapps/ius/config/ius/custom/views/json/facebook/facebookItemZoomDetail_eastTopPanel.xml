@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<w:root xmlns:w="http://www.interwoven.com/worksite/2008/views/view.xsd">
+
+	<w:set var="isCollection"           value="${requestParams.isCollection}"           />
+    <w:set var="enableCompass"          value="${requestParams.enableCompass}"          />
+
+    <w:if test="${not(isCollection)}">
+        <w:set var="item"               value="${fn:getValue(data.session,'zoomItem')}" />
+        <w:set var="url"                value="${requestParams.url}"                    />
+        <w:set var="collectionDetails"  value="${requestParams.collectionDetails}"      />
+    </w:if>
+
+    <w:set var="isEmpty" value="true"/>
+    <w:set var="databaseMatch"          value="${item.autn:database}"                   />
+    <w:set var="reference"              value="${item.autn:reference}"                  />
+
+    <w:setParam name="databaseMatch"    value="${databaseMatch}"    item="${data.item}" />
+    <w:setParam name="reference"        value="${reference}"        item="${data.item}" />
+
+    <w:panel cssClass="ius-auto-update-container">
+        <w:items>
+    		<w:invoke operation="zoom_twitterItemSameFolder" />
+    		<w:div cssClass="compass-div-line"/>
+
+            <w:panel collapsible="true" caption="relatedassets:discovery" cssClass="ius-360view-title">
+                <w:items>
+                    <w:panel cssClass="ius-item-container ius-scrollbars">
+                        <w:items>
+                            <w:forEach var="item" items="${data.item.results.responsedata.autn:hit}">
+                                <w:insert page="/json/resultItem/setIconExtensionViewer.xml" >
+                                    <w:put name="skipSubfileViewerProcessing" value="true" />
+                                </w:insert>
+                                <w:set var="isEmpty" value="false"/>
+                                <w:dataview>
+                                    <w:data>
+                                        <w:parameter name="reference" value="${fn:escJS(item.autn:reference)}"/>
+                                        <w:parameter name="thumb" value = "./config/ius/custom/images/twitter/Twitter_logo_blue_28x23.png"/>
+                                        <w:parameter name="thumb" value="${item.autn:content.DOCUMENT.THUMB)" test="${item.autn:content.DOCUMENT.THUMB}"/>
+                                        <w:parameter name="databaseMatch" value="${databaseMatch}"/>
+                                        <w:parameter name="icon" value="${icon}" />
+                                        <w:array name="properties">
+                                           <w:insert page="${data.item.registrationParams.compassEastPanelProperties}"/>
+                                        </w:array>
+                                    </w:data>
+                                    <w:view>
+
+                                        <div class='ius-item ius-east-item' title='{title}' onclick="IWOV.ius.showMashup('resultItem','{reference}','','','{databaseMatch}')">
+                                            <div class='ius-item-image' >
+                                                <div class="iwov-icon50 iwov-img-{icon}-50">&amp;nbsp;</div>
+                                            </div>
+                                            <div class='ius-item-text'>
+                                                <tpl for="properties">
+                                                    <tpl if="xindex == 1">
+                                                            <tpl if="this.exists(values,'caption')">
+                                                                <div class='ius-item-title-caption'>{caption}:</div>
+                                                            </tpl>
+                                                            <div class='ius-item-title'>{value}</div>
+                                                    </tpl>
+                                                    <tpl if="xindex &gt; 1">
+                                                            <tpl if="this.exists(values,'caption')">
+                                                                <div class='ius-item-property-caption'>{caption}:</div>
+                                                            </tpl>
+                                                            <div class='ius-item-property'>{value}</div>
+                                                    </tpl>
+                                                </tpl>
+                                            </div>
+                                        </div>
+                                    </w:view>
+                                </w:dataview>
+                            </w:forEach>
+                            <w:div test="${isEmpty}" cssClass="noMatchesText ius-360view-no-matches">
+                                <w:text>
+                                    <w:caption name="noMatches" type="resultItem"/>
+                                </w:text>
+                            </w:div>
+                        </w:items>
+                    </w:panel>
+                </w:items>
+            </w:panel>
+            <w:if test="${not(isEmpty)}">
+                <w:div cssClass="compass-div-line"/>
+            </w:if>
+        </w:items>
+    </w:panel>
+</w:root>
+
