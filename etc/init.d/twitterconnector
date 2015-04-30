@@ -43,7 +43,7 @@ case "$1" in
   stop)
     echo -n "Stopping Autonomy Twitter Connector: "
 	cd "/opt/Autonomy/IDOLServer/TwitterConnector"
-	curl http://localhost:5432/action=STOP &> sed -e "s/<.+>/ /g"
+	curl http://localhost:5532/action=STOP 
     #echo -n "Stopping Autonomy CFS: "
 	#cd "/opt/Autonomy/TwitterConnector"
 	#curl http://localhost:40300/action=STOP &> sed -e "s/<.+>/ /g"

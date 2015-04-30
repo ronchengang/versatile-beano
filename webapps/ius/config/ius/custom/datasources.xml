@@ -4,23 +4,23 @@
     <datasources>
         <datasource id="ius" extends="base">
             <parameters>
-                <parameter id="tabs">allTab,fileSystemTab,twitterTab,peopleTab,wwwTab,facebookTab,sharepointTab,portalTab</parameter>
+                <parameter id="tabs">allTab,twitterTab,wwwTab,facebookTab</parameter>
                 <parameter id="personRef">http://localhost/data/People/${personId}.htm</parameter>
                 <parameter id="personImgRef">http://localhost/data/People/img/${personId}.jpg</parameter>
                 <parameter id="enableDocumentPreviewEngine">false</parameter>
                 <parameter id="peopleDatabaseMatch">People</parameter>
                 <parameter id="peopleDatabaseUserIdField">USERID</parameter>
-                <parameter id="documentsDatabaseMatch">FileShare+twitter+www+facebook</parameter>
+                <parameter id="documentsDatabaseMatch">www+twitter+facebook</parameter>
                 <parameter id="matchAllTerms">false</parameter>
 				<parameter id="requiredPrintFields">DREREFERENCE,DREDATE,DREDBNAME,AUTN_IDENTIFIER,IUS_COMMENTS_COUNT,IUS_RATING_AVERAGE,IUS_RATING_COUNT,IM_VOTE_UP,_TAG_*</parameter>
                 <parameter id="commonQueryString">sentences=0&amp;predict=true&amp;outputencoding=UTF8&amp;combine=simple&amp;anyLanguage=true&amp;expandquery=true&amp;xmlmeta=true</parameter>
                 <parameter id="commonQueryParams"></parameter>
                 <parameter id="enableDocumentPreviewEngine">true</parameter>
                 <parameter id="enableCompass">true</parameter>
-                <parameter id="connectorHost">localhost</parameter>				
+                <parameter id="connectorHost">localhost</parameter>
             </parameters>
         </datasource>
-		
+
         <datasource id="twitterItemTab" extends="search">
            <!--propertyRelations>
                 <propertyRelation id="FOLDERPATH">
@@ -88,7 +88,7 @@
 				</actionSet>
 			</actionSets>
 		</datasource>
-		
+
         <datasource id="twitterTab" extends="twitterItemTab">
              <parameters>
                 <parameter id="databaseMatch">twitter</parameter>
@@ -153,7 +153,7 @@
 				</actionSet>
 			</actionSets>
 		</datasource>
-		
+
         <datasource id="facebookTab" extends="facebookItemTab">
              <parameters>
                 <parameter id="databaseMatch">facebook</parameter>
@@ -218,7 +218,7 @@
 				</actionSet>
 			</actionSets>
 		</datasource>
-		
+
         <datasource id="wwwTab" extends="wwwItemTab">
              <parameters>
                 <parameter id="databaseMatch">www</parameter>
@@ -318,4 +318,3 @@
         <datasource id="HPRM" extends="hprmItem" />
     </datasources>
 </datamodel>
-

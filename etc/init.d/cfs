@@ -46,7 +46,7 @@ case "$1" in
 	#curl http://localhost:5432/action=STOP &> sed -e "s/<.+>/ /g"
     echo -n "Stopping Autonomy CFS: "
 	cd "/opt/Autonomy/IDOLServer"
-	curl http://localhost:40300/action=STOP &> sed -e "s/<.+>/ /g"
+	curl http://localhost:40030/action=STOP
 	
 	;;
   status)
