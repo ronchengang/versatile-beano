@@ -36,25 +36,27 @@
 case "$1" in
   start)
     #echo -n "Starting Autonomy License Server: "
-	#su - idol -c "cd /opt/Autonomy/IDOLServer/LicenseServer/ ; nohup ./Autonomylicenseserver.exe &"
-	#sleep 3
+	su - idol -c "cd /opt/Autonomy/IDOLServer/LicenseServer/ ; nohup ./Autonomylicenseserver.exe &"
+	sleep 3
     echo -n "Starting Autonomy IDOL: "
 	su - idol -c "cd /opt/Autonomy/IDOLServer/IDOL/ ; nohup ./AutonomyIDOLServer.exe &"
 	;;
   stop)
-    #echo -n "Stopping Autonomy License Server: "
-	#curl http://localhost:20002/action=STOP >& sed -e "s/<.+>/ /g"
+    echo -n "Stopping Autonomy License Server: "
+	curl http://localhost:20002/action=STOP
 
     echo -n "Stopping Autonomy IDOL: "
 	cd "/opt/Autonomy/IDOLServer"
  	
-	curl http://localhost:9002/action=STOP &> sed -e "s/<.+>/ /g"
+	curl http://localhost:9002/action=STOP
 	
 	;;
   status)
         cd /opt/Autonomy/IDOLServer/IDOL/
+        /opt/Autonomy/IDOLServer/LicenseServer/Autonomylicenseserver.exe -version
         /opt/Autonomy/IDOLServer/IDOL/AutonomyIDOLServer.exe -version
 	echo "PID TTY          TIME CMD"
+	for PID in `find /opt/Autonomy/IDOLServer/LicenseServer/ -name "*.pid"` ; do ps -p `cat $PID` | grep -v "  PID TTY          TIME CMD" ; done
 	for PID in `find /opt/Autonomy/IDOLServer/IDOL/ -name "*.pid"` ; do ps -p `cat $PID` | grep -v "  PID TTY          TIME CMD" ; done
 	;;
   restart)

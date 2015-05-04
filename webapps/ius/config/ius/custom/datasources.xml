@@ -11,7 +11,7 @@
                 <parameter id="peopleDatabaseMatch">People</parameter>
                 <parameter id="peopleDatabaseUserIdField">USERID</parameter>
                 <parameter id="documentsDatabaseMatch">www+twitter+facebook</parameter>
-                <parameter id="matchAllTerms">false</parameter>
+                <parameter id="matchAllTerms">TRUE</parameter>
 				<parameter id="requiredPrintFields">DREREFERENCE,DREDATE,DREDBNAME,AUTN_IDENTIFIER,IUS_COMMENTS_COUNT,IUS_RATING_AVERAGE,IUS_RATING_COUNT,IM_VOTE_UP,_TAG_*</parameter>
                 <parameter id="commonQueryString">sentences=0&amp;predict=true&amp;outputencoding=UTF8&amp;combine=simple&amp;anyLanguage=true&amp;expandquery=true&amp;xmlmeta=true</parameter>
                 <parameter id="commonQueryParams"></parameter>

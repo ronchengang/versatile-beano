@@ -38,12 +38,12 @@ case "$1" in
     #necho -n "Starting Autonomy CFS: "
 	#su - idol -c "cd /opt/Autonomy/IDOLServer/CFS/ ; nohup ./CFS.exe &"
     echo -n "Starting Autonomy Http Connector: "
-	su - idol -c "cd /opt/Autonomy/IDOLServer/HTTPConnector/ ; nohup ./httpconnector.exe &"
+	su - idol -c "cd /opt/Autonomy/HTTPConnectorCFS/ ; nohup ./HttpConnector.exe &"
 	;;
   stop)
     echo -n "Stopping Autonomy Http Connector: "
 	cd "/opt/Autonomy/IDOLServer"
-	curl http://localhost:5432/action=STOP &> sed -e "s/<.+>/ /g"
+	curl http://localhost:5432/action=STOP 
     #echo -n "Stopping Autonomy CFS: "
 	#cd "/opt/Autonomy/IDOLServer"
 	#curl http://localhost:40300/action=STOP &> sed -e "s/<.+>/ /g"
@@ -52,11 +52,11 @@ case "$1" in
   status)
         #cd /opt/Autonomy/IDOLServer/CFS/
         #/opt/Autonomy/IDOLServer/CFS/CFS.exe --version
-        cd /opt/Autonomy/IDOLServer/HTTPConnector
-        /opt/Autonomy/IDOLServer/HTTPConnector/httpconnector.exe --version
+        cd /opt/Autonomy/HTTPConnectorCFS
+        /opt/Autonomy/HTTPConnectorCFS/HttpConnector.exe --version
 	echo "PID TTY          TIME CMD"
 	#for PID in `find /opt/Autonomy/IDOLServer/CFS/ -name "*.pid"` ; do ps -p `cat $PID` | grep -v "  PID TTY          TIME CMD" ; done
-	for PID in `find /opt/Autonomy/IDOLServer/HTTPConnector/ -name "*.pid"` ; do ps -p `cat $PID` | grep -v "  PID TTY          TIME CMD" ; done
+	for PID in `find /opt/Autonomy/HTTPConnectorCFS/ -name "*.pid"` ; do ps -p `cat $PID` | grep -v "  PID TTY          TIME CMD" ; done
 	;;
   restart)
 	# this could be done better
