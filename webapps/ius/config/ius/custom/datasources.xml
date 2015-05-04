@@ -22,26 +22,9 @@
         </datasource>
 
         <datasource id="twitterItemTab" extends="search">
-           <!--propertyRelations>
-                <propertyRelation id="FOLDERPATH">
-                    <property name="FOLDER1"/>
-                    <property name="FOLDER2"/>
-                    <property name="FOLDER3"/>
-                    <property name="FOLDER4"/>
-                    <property name="FOLDER5"/>
-                </propertyRelation>
-			</propertyRelations-->
             <parameters>
                 <parameter id="tabType">twitterItemTab</parameter>
-				<!--parameter id="columns">icon,actions,user__name,database,place__name,created_at</parameter>
-	            <parameter id="sortOptions">date</parameter>
-                <parameter id="FieldName">user__name,database,place__name,created_at,text</parameter>
-                <parameter id="mainViewPrintFields">user__name,database,place__name,created_at,text</parameter>
-                <parameter id="briefViewPrintFields">user__name,text</parameter>
-                <parameter id="tableViewPrintFields">>user__name,database,place__name,created_at,text</parameter>
-                <parameter id="exportResultsPrintFields">>user__name,database,place__name,created_at,text</parameter>
-                <parameter id="expressFields">user__name,text</parameter-->
-                <!--parameter id="queryBuilderFieldName">ATTACHMENT:boolean,WIDTH__PIXELS_:number,HEIGHT__PIXELS_:number,FOLDER*:string</parameter-->
+                <parameter id="showQuickPreviewPanel">false</parameter>
             </parameters>
 		</datasource>
 		<datasource id="twitterItem" extends="resultItem">
@@ -107,6 +90,7 @@
         <datasource id="facebookItemTab" extends="search">
             <parameters>
                 <parameter id="tabType">facebookItemTab</parameter>
+                <parameter id="showQuickPreviewPanel">false</parameter>
             </parameters>
 		</datasource>
 		<datasource id="facebookItem" extends="resultItem">
