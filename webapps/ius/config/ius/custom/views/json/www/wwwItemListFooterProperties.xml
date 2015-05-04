@@ -2,21 +2,9 @@
 <w:root xmlns:w="http://www.interwoven.com/worksite/2008/views/view.xsd">
     <w:set var="databaseCaption" value="${item.autn:database}:autn_database"/>
 
-    <w:property id="database" caption="database" value="${fn:evalCaption(databaseCaption)}" />
+    <w:property id="AUTHOR" caption="AUTHOR" value="${item.autn:content.DOCUMENT.AUTHOR}" />
+    <w:property id="DESCRIPTION" caption="DESCRIPTION" value="${item.autn:content.DOCUMENT.DESCRIPTION}" />
+    <w:property id="KEYWORDS" caption="KEYWORDS" value="${item.autn:content.DOCUMENT.KEYWORDS}" />
+    <w:property id="PUBLISHER" caption="PUBLISHER" value="${item.autn:content.DOCUMENT.PUBLISHER}" />
 
-    <w:property id="FULLFILENAME" caption="DRIVELETTER:search" value="${item.autn:content.DOCUMENT.FOLDERPATH}"
-                href="javascript:IWOV.ius.applyFieldText('FOLDERPATH', '${fn:escJS(item.autn:content.DOCUMENT.FOLDERPATH)}')" />
-
-    <w:property id="application" caption="application" value="${item.autn:content.DOCUMENT.APPNAME}"
-                    href="javascript:IWOV.ius.applyFieldText('APPNAME', '${fn:escJS(item.autn:content.DOCUMENT.APPNAME)}')" />
-
-    <w:property id="modifiedDate" caption="modifiedDate" value="${fn:getDate(item.autn:content.DOCUMENT.FILEMODIFIEDTIME,'MM/dd/yyyy')}" class="nolink"/>
-
-    <w:property id="createDate" caption="createDate" value="${fn:getDate(item.autn:content.DOCUMENT.FILECREATEDTIME,'MM/dd/yyyy')}" class="nolink"/>
-
-    <w:set var="tempSize" value="${item.autn:content.DOCUMENT.DOCUMENTSIZE}"/>
-    <w:set var="tempSize" value="${item.autn:content.DOCUMENT.FILELENGTH}" test="${empty(tempSize) and not(empty(item.autn:content.DOCUMENT.FILELENGTH))}"/>
-    <w:set var="tempSize" value="" test="${empty(tempSize)}"/>
-
-    <w:property id="fileLength" caption="fileLength" value="${tempSize}"/>
 </w:root>
