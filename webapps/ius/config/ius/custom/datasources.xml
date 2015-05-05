@@ -4,7 +4,7 @@
     <datasources>
         <datasource id="ius" extends="base">
             <parameters>
-                <parameter id="tabs">allTab,twitterTab,wwwTab,facebookTab</parameter>
+                <parameter id="tabs">allTab,twitterTab,wwwTab,facebookTab,clusterTab</parameter>
                 <parameter id="personRef">http://localhost/data/People/${personId}.htm</parameter>
                 <parameter id="personImgRef">http://localhost/data/People/img/${personId}.jpg</parameter>
                 <parameter id="enableDocumentPreviewEngine">false</parameter>
