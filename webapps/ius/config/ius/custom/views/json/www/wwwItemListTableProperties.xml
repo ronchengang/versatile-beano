@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <w:root xmlns:w="http://www.interwoven.com/worksite/2008/views/view.xsd">
 
-  <w:property id="TITLE" value="${item.autn:content.DOCUMENT.TITLE}" caption="title"/>
-	<w:property id="REF" value="${item.autn:content.DOCUMENT.DREREFERENCE}" class="iwov-click-source"
-                href="${titleHref}" command="${titleCommand}" caption="REFERENCE"/>
-	<w:property id="SUMMARY" value="${item.autn:summary}" caption="SUMMARY"/>
-  
+  <w:property id="TITLE" value="${item.autn:content.DOCUMENT.DRETITLE}"  href="javascript:window.open('${item.autn:content.DOCUMENT.DREREFERENCE}','${item.autn:content.DOCUMENT.DRETITLE}','width=800,height=600,scrollbars=yes')" caption="title" target="popup" />
+	<w:property id="REF" value="${item.autn:content.DOCUMENT.DREREFERENCE}" href="javascript:window.open('${item.autn:content.DOCUMENT.DREREFERENCE}','${item.autn:content.DOCUMENT.DRETITLE}','width=800,height=600,scrollbars=yes')"  caption="REFERENCE" target="popup" />
+
 </w:root>

@@ -12,7 +12,7 @@
                 <parameter id="peopleDatabaseUserIdField">USERID</parameter>
                 <parameter id="documentsDatabaseMatch">www+twitter+facebook</parameter>
                 <parameter id="matchAllTerms">TRUE</parameter>
-				<parameter id="requiredPrintFields">DREREFERENCE,DREDATE,DREDBNAME,AUTN_IDENTIFIER,IUS_COMMENTS_COUNT,IUS_RATING_AVERAGE,IUS_RATING_COUNT,IM_VOTE_UP,_TAG_*</parameter>
+				        <parameter id="requiredPrintFields">DREREFERENCE,DREDATE,DREDBNAME,AUTN_IDENTIFIER,IUS_COMMENTS_COUNT,IUS_RATING_AVERAGE,IUS_RATING_COUNT,IM_VOTE_UP,_TAG_*</parameter>
                 <parameter id="commonQueryString">sentences=0&amp;predict=true&amp;outputencoding=UTF8&amp;combine=simple&amp;anyLanguage=true&amp;expandquery=true&amp;xmlmeta=true</parameter>
                 <parameter id="commonQueryParams"></parameter>
                 <parameter id="enableDocumentPreviewEngine">true</parameter>
@@ -195,10 +195,10 @@
 			</commands>
 			<actionSets>
 				<actionSet id="default">
-					<action id="goToMashupPage"/>
-					<action id="previewWindowView"/>
+					<!--action id="goToMashupPage"/-->
+					<!--action id="previewWindowView"/-->
 					<action id="viewCachedContent"/>
-                    <action id="downloadAction" />
+          <!--action id="downloadAction" /-->
 				</actionSet>
 			</actionSets>
 		</datasource>
@@ -206,7 +206,7 @@
         <datasource id="wwwTab" extends="wwwItemTab">
              <parameters>
                 <parameter id="databaseMatch">www</parameter>
-				<parameter id="columns">icon,actions,TITLE,REF,SUMMARY</parameter>
+				<parameter id="columns">actions,TITLE,REF</parameter>
 	            <parameter id="sortOptions">date</parameter>
                 <parameter id="FieldName">AUTHOR,TITLE,DESCRIPTION,KEYWORDS,PUBLISHER,FILEMODIFIEDTIME,DREREFERENCE</parameter>
                 <parameter id="mainViewPrintFields">AUTHOR,TITLE,DESCRIPTION,KEYWORDS,PUBLISHER,FILEMODIFIEDTIME,DREREFERENCE</parameter>
@@ -300,5 +300,78 @@
             </parameters>
         </datasource>
         <datasource id="HPRM" extends="hprmItem" />
+
+        <datasource id="viewers" extends="resultItem">
+            <commands>
+                <command id="viewIDOLViewServer" className="com.interwoven.web.core.command.CorePageCommand">
+                    <views>
+                        <view id="main" mainContent="/json/resultItem/viewDREContent.xml"/>
+                    </views>
+                </command>
+                <command id="viewDocumentPreviewEngine" className="com.interwoven.web.core.command.CorePageCommand">
+                    <views>
+                        <view id="main" mainContent="/json/resultItem/viewHighlighted.xml"/>
+                    </views>
+                </command>
+                <command id="viewAdobePlugin" className="com.interwoven.web.core.command.CorePageCommand">
+                    <views>
+                        <view id="main" mainContent="/json/resultItem/viewAdobePlugin.xml"/>
+                    </views>
+                </command>
+                <command id="viewMetaDataView" className="com.interwoven.web.core.command.CorePageCommand">
+                    <views>
+                        <view id="main" mainContent="/json/resultItem/viewMetaDataView.xml"/>
+                    </views>
+                </command>
+                <command id="viewNoPreviewAvailable" className="com.interwoven.web.core.command.CorePageCommand">
+                    <views>
+                        <view id="main" mainContent="/json/resultItem/viewNoPreviewAvailable.xml"/>
+                    </views>
+                </command>
+                <command id="viewEmailPreview" className="com.interwoven.web.core.command.CorePageCommand">
+                    <views>
+                        <view id="main" mainContent="/json/resultItem/viewEmailPreview.xml"/>
+                    </views>
+                </command>
+                <command id="viewArchivePreview" className="com.interwoven.web.core.command.CorePageCommand">
+                    <views>
+                        <view id="main" mainContent="/json/resultItem/viewArchivePreview.xml"/>
+                    </views>
+                </command>
+                <command id="getParentItem" className="com.interwoven.web.core.command.CorePageCommand">
+                    <parameters>
+                        <parameter id="queryString">action=getContent&amp;Text=*&amp;highlight=terms&amp;xmlmeta=true&amp;Print=All&amp;TotalResults=true&amp;maxresults=1</parameter>
+                        <parameter id="queryParams">reference,links</parameter>
+                        <parameter id="idolStartTag">${registrationParams.htmlStartTag}</parameter>
+                        <parameter id="idolEndTag">${registrationParams.htmlEndTag}</parameter>
+                    </parameters>
+                    <views>
+                        <view id="main" mainContent="/json/resultItem/getParentItem.xml"/>
+                    </views>
+                </command>
+                <command id="getContainerItems" className="com.interwoven.web.core.command.CorePageCommand">
+                    <parameters>
+                        <parameter id="commonQueryString">anyLanguage=true&amp;outputencoding=UTF8</parameter>
+                        <parameter id="queryString">Action=Query&amp;Print=All&amp;sort=FAMILYSORT:alphabetical&amp;TotalResults=true</parameter>
+                        <parameter id="MaxResults">51</parameter>
+                        <parameter id="queryParams">FieldText,MaxResults,databaseMatch</parameter>
+                    </parameters>
+                    <views>
+                        <view id="main" mainContent="/json/resultItem/getContainerItems.xml"/>
+                    </views>
+                </command>
+                <command id="getPreviewInfoFromPreviewEngine" className="com.interwoven.web.ius.command.HttpRequestCmd" permission="modify">
+                    <parameters>
+                        <parameter id="queryParams">url,uri,pages,thumb_size,modified_date,force_pdf</parameter>
+                    </parameters>
+                </command>
+                <command id="getPreviewImageFromPreviewEngine" className="com.interwoven.web.ius.command.HttpRequestCmd" permission="modify">
+                    <parameters>
+                        <parameter id="queryParams">url</parameter>
+                    </parameters>
+                </command>
+            </commands>
+        </datasource>
+
     </datasources>
 </datamodel>
