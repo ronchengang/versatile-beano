@@ -43,12 +43,12 @@ case "$1" in
 	;;
   stop)
     echo -n "Stopping Autonomy License Server: "
-	curl http://localhost:20002/action=STOP
+	(curl http://localhost:20002/action=STOP) &
 
     echo -n "Stopping Autonomy IDOL: "
 	cd "/opt/Autonomy/IDOLServer"
  	
-	curl http://localhost:9002/action=STOP
+	(curl http://localhost:9002/action=STOP) &
 	
 	;;
   status)

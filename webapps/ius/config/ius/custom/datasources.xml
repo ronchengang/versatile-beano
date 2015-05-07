@@ -18,6 +18,7 @@
                 <parameter id="enableDocumentPreviewEngine">true</parameter>
                 <parameter id="enableCompass">true</parameter>
                 <parameter id="connectorHost">localhost</parameter>
+                <parameter id="FieldName">DATABASE,AUTHOR,IMPORTMAGICEXTENSION,PLACE,USER__LOCATION,USER__TIME_ZONE</parameter>
             </parameters>
         </datasource>
 
@@ -75,9 +76,9 @@
         <datasource id="twitterTab" extends="twitterItemTab">
              <parameters>
                 <parameter id="databaseMatch">twitter</parameter>
-				<parameter id="columns">icon,actions,user__name,text,created_at</parameter>
-	            <parameter id="sortOptions">date</parameter>
-                <parameter id="FieldName">user__location,place,user__time_zone</parameter>
+				        <parameter id="columns">icon,actions,user__name,text,created_at</parameter>
+	              <parameter id="sortOptions">date</parameter>
+                <parameter id="FieldName">PLACE,USER__LOCATION,USER__TIME_ZONE,USER__FOLLOWERS_COUNT,USER__STATUSES_COUNT</parameter>
                 <parameter id="mainViewPrintFields">text,place*,source*,entities*,user*,created_at</parameter>
                 <parameter id="briefViewPrintFields">user__name,text</parameter>
                 <parameter id="tableViewPrintFields">user__name,text,created_at</parameter>
@@ -141,15 +142,15 @@
         <datasource id="facebookTab" extends="facebookItemTab">
              <parameters>
                 <parameter id="databaseMatch">facebook</parameter>
-				<parameter id="columns">name,link,likes,item_type,updated_time</parameter>
-	            <parameter id="sortOptions">date</parameter>
-                <parameter id="FieldName">NAME,DREREFERENCE,BIRTHDAY,FIRST_NAME,GENDER,ITEM_TYPE,LAST_NAME,LINK,LOCALE,LIKES,TIMEZONE,ABOUT,CATEGORY,COMPANY_OVERVIEW,FOUNDED,GENERAL_INFO,MISSION,WEBSITE,USERNAME</parameter>
+     				    <parameter id="columns">name,link,likes,item_type,updated_time</parameter>
+	              <parameter id="sortOptions">date</parameter>
+                <parameter id="FieldName">GENDER,ITEM_TYPE,LIKES,CATEGORY,USERNAME</parameter>
                 <parameter id="mainViewPrintFields">NAME,DREREFERENCE,BIRTHDAY,FIRST_NAME,GENDER,ITEM_TYPE,LAST_NAME,LINK,LOCALE,LIKES,TIMEZONE,ABOUT,CATEGORY,COMPANY_OVERVIEW,FOUNDED,GENERAL_INFO,MISSION,WEBSITE,USERNAME</parameter>
                 <parameter id="briefViewPrintFields">NAME,DREREFERENCE,BIRTHDAY,FIRST_NAME,GENDER,ITEM_TYPE,LAST_NAME,LINK,LOCALE,LIKES,TIMEZONE,ABOUT,CATEGORY,COMPANY_OVERVIEW,FOUNDED,GENERAL_INFO,MISSION,WEBSITE,USERNAME</parameter>
                 <parameter id="tableViewPrintFields">NAME,DREREFERENCE,BIRTHDAY,FIRST_NAME,GENDER,ITEM_TYPE,LAST_NAME,LINK,LOCALE,LIKES,TIMEZONE,ABOUT,CATEGORY,COMPANY_OVERVIEW,FOUNDED,GENERAL_INFO,MISSION,WEBSITE,USERNAME</parameter>
                 <parameter id="exportResultsPrintFields">NAME,DREREFERENCE,BIRTHDAY,FIRST_NAME,GENDER,ITEM_TYPE,LAST_NAME,LINK,LOCALE,LIKES,TIMEZONE,ABOUT,CATEGORY,COMPANY_OVERVIEW,FOUNDED,GENERAL_INFO,MISSION,WEBSITE,USERNAME</parameter>
-                <parameter id="expressFields">NAME,DREREFERENCE,BIRTHDAY,FIRST_NAME,GENDER,ITEM_TYPE,LAST_NAME,LINK,LOCALE,LIKES,TIMEZONE,ABOUT,CATEGORY,COMPANY_OVERVIEW,FOUNDED,GENERAL_INFO,MISSION,WEBSITE,USERNAME</parameter>
             </parameters>
+                <parameter id="expressFields">NAME,DREREFERENCE,BIRTHDAY,FIRST_NAME,GENDER,ITEM_TYPE,LAST_NAME,LINK,LOCALE,LIKES,TIMEZONE,ABOUT,CATEGORY,COMPANY_OVERVIEW,FOUNDED,GENERAL_INFO,MISSION,WEBSITE,USERNAME</parameter>
         </datasource>
         <datasource id="Facebook" extends="facebookItem"/>
 
@@ -206,9 +207,9 @@
         <datasource id="wwwTab" extends="wwwItemTab">
              <parameters>
                 <parameter id="databaseMatch">www</parameter>
-				<parameter id="columns">actions,TITLE,REF</parameter>
-	            <parameter id="sortOptions">date</parameter>
-                <parameter id="FieldName">AUTHOR,TITLE,DESCRIPTION,KEYWORDS,PUBLISHER,FILEMODIFIEDTIME,DREREFERENCE</parameter>
+				        <parameter id="columns">actions,TITLE,REF</parameter>
+	              <parameter id="sortOptions">date</parameter>
+                <parameter id="FieldName">AUTHOR,KEYWORDS,PUBLISHER</parameter>
                 <parameter id="mainViewPrintFields">AUTHOR,TITLE,DESCRIPTION,KEYWORDS,PUBLISHER,FILEMODIFIEDTIME,DREREFERENCE</parameter>
                 <parameter id="briefViewPrintFields">AUTHOR,TITLE,DESCRIPTION,KEYWORDS,PUBLISHER,FILEMODIFIEDTIME,DREREFERENCE</parameter>
                 <parameter id="tableViewPrintFields">AUTHOR,TITLE,DESCRIPTION,KEYWORDS,PUBLISHER,FILEMODIFIEDTIME,DREREFERENCE</parameter>

@@ -14,7 +14,5 @@
 	<w:property id="USER__FOLLOWERS_COUNT" value="${item.autn:content.DOCUMENT.USER__FOLLOWERS_COUNT}" caption="USER__FOLLOWERS_COUNT"/>
 	<w:property id="USER__STATUSES_COUNT" value="${item.autn:content.DOCUMENT.USER__STATUSES_COUNT}" caption="USER__STATUSES_COUNT"/>
 	<w:property id="USER__TIME_ZONE" value="${item.autn:content.DOCUMENT.USER__TIME_ZONE}" caption="USER__TIME_ZONE"/>
-	<w:property id="USER__FOLLOWERS_COUNT" value="${item.autn:content.DOCUMENT.USER__FOLLOWERS_COUNT}" caption="USER__FOLLOWERS_COUNT"/>
-	<w:property id="USER__FOLLOWERS_COUNT" value="${item.autn:content.DOCUMENT.USER__FOLLOWERS_COUNT}" caption="USER__FOLLOWERS_COUNT"/>
-
+	
 </w:root>

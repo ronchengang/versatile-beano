@@ -6,5 +6,7 @@
     <group id="search">
         <caption id="twitterTab">twitter</caption>
         <caption id="newsTab">Noticias</caption>
+        <caption id="facebookTab">facebook</caption>
+        <caption id="AUTHOR">Autor</caption>
     </group>
 </captions>
