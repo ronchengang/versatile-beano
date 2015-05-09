@@ -374,5 +374,70 @@
             </commands>
         </datasource>
 
+        <datasource id="clusterTab" extends="search">
+    			<parameters>
+    				<parameter id="jobPrefix">MyJob</parameter>
+    			</parameters>
+               <commands>
+                 <command id="zoom" className="com.interwoven.web.core.command.CorePageCommand">
+                   <views>
+                     <view id="main" mainContent="/json/clusterTab/queryAll.xml"/>
+                   </views>
+                 </command>
+                 <command id="clusterContents" className="com.interwoven.web.core.command.CorePageCommand">
+                   <views>
+                     <view id="main" mainContent="/json/clusterTab/clusterContents.xml"/>
+                   </views>
+                 </command>
+                   <command id="cluster2dData" className="com.interwoven.web.core.command.CorePageCommand">
+                     <views>
+                       <view id="main" mainContent="/json/clusterTab/clusterData.xml"/>
+                     </views>
+                     <parameters>
+                       <parameter id="queryString">action=ClusterResults&amp;SourceJobName=${registrationParams.jobPrefix}_Clusters&amp;MaxTerms=1&amp;NumResults=50</parameter>
+                       <parameter id="queryParams">NumResults,Cluster</parameter>
+                     </parameters>
+                   </command>
+                   <command id="cluster2dMap" className="com.interwoven.web.ius.command.ProxyCommand">
+                       <parameters>
+                           <parameter id="commonQueryString"></parameter>
+                           <parameter id="queryString">action=ClusterServe2DMap&amp;SourceJobname=${registrationParams.jobPrefix}_Clusters</parameter>
+                           <parameter id="queryParams"></parameter>
+                           <parameter id="binary">true</parameter>
+                       </parameters>
+                   </command>
+                   <command id="spectrographDocsData" className="com.interwoven.web.core.command.CorePageCommand">
+                     <views>
+                       <view id="main" mainContent="/json/clusterTab/clusterData.xml"/>
+                     </views>
+                     <parameters>
+                       <parameter id="queryString">action=ClusterSGDocsServe&amp;SourceJobName=${registrationParams.jobPrefix}_SG&amp;Cluster=1&amp;NumResults=50</parameter>
+                       <parameter id="queryParams">NumResults,Cluster,StartDate</parameter>
+                     </parameters>
+                   </command>
+                   <command id="spectrographData" className="com.interwoven.web.core.command.CorePageCommand">
+                     <views>
+                       <view id="main" mainContent="/json/clusterTab/clusterData.xml"/>
+                     </views>
+                     <parameters>
+                       <parameter id="queryString">action=ClusterSGDataServe&amp;SourceJobname=${registrationParams.jobPrefix}_SG&amp;StructuredXML=true</parameter>
+                     </parameters>
+                   </command>
+                   <command id="spectrographMap" className="com.interwoven.web.ius.command.ProxyCommand">
+                       <parameters>
+                           <parameter id="commonQueryString"></parameter>
+                           <parameter id="queryString">action=ClusterSGPicServe&amp;SourceJobname=${registrationParams.jobPrefix}_SG</parameter>
+                           <parameter id="queryParams"></parameter>
+                           <parameter id="binary">true</parameter>
+                       </parameters>
+                   </command>
+                   <command id="clusterTabHome" className="com.interwoven.web.core.command.CorePageCommand">
+                     <views>
+                       <view id="main" mainContent="/json/clusterTab/clusterTabHome.xml"/>
+                     </views>
+                   </command>
+                  </commands>
+    		</datasource>
+
     </datasources>
 </datamodel>
