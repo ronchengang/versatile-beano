@@ -37,8 +37,9 @@ case "$1" in
   start)
     #necho -n "Starting Autonomy CFS: "
 	#su - idol -c "cd /opt/Autonomy/IDOLServer/CFS/ ; nohup ./CFS.exe &"
-    echo -n "Starting Autonomy Http Connector: "
-	su - idol -c "cd /opt/Autonomy/HTTPConnectorCFS/ ; nohup ./HttpConnector.exe &"
+#    echo -n "Starting Autonomy Http Connector: "
+	#su - idol -c "cd /opt/Autonomy/HTTPConnectorCFS/ ; nohup ./HttpConnector.exe &"
+    echo -n "NOT Starting Autonomy Http Connector: "
 	;;
   stop)
     echo -n "Stopping Autonomy Http Connector: "

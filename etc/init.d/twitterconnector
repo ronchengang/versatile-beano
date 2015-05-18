@@ -37,8 +37,9 @@ case "$1" in
   start)
     #echo -n "Starting Autonomy CFS: "
 	#su - idol -c "cd /opt/Autonomy/TwitterConnector/CFS/ ; nohup ./CFS.exe &"
-    echo -n "Starting Autonomy Twitter Connector: "
-	su - idol -c "cd /opt/Autonomy/IDOLServer/TwitterConnector/ ; nohup ./TwitterConnector.exe &"
+    #echo -n "Starting Autonomy Twitter Connector: "
+	#su - idol -c "cd /opt/Autonomy/IDOLServer/TwitterConnector/ ; nohup ./TwitterConnector.exe &"
+    echo -n "NOT Starting Autonomy Twitter Connector: "
 	;;
   stop)
     echo -n "Stopping Autonomy Twitter Connector: "
